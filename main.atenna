@@ -1,6 +1,5 @@
 package org.gabrielmargarido.atenna
 import os
-import mug
 
 private void function main() {
     System.out.println("Hello world")

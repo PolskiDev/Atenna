@@ -1,10 +1,17 @@
 # Atenna Programming Language
-### Developed by Gabriel Margarido - Version 0.2.3
-A compiled, multiplatform, statically, structured and strong-typed programming language with a Java-like syntax with a bit of Javascript semantics. That ables you to code instantly fast programs and execute them on LLVM (low-level virtual machine).
+### Developed by Gabriel Margarido - Version 0.2.4
+A compiled, multiplatform, statically, structured and strongly-typed programming language with a Java-like syntax and a bit of Javascript semantics. That ables you to code instantly fast programs and execute them on LLVM (low-level virtual machine).
 
 <img src="assets/atenna-full.png" width="350px"><br>
 
 Atenna source-files extensions are: `*.atenna` or `*.atn` 
+
+## Install Git Bash (Windows)
+<img src="assets/Bash_Logo_Colored.svg.png" width="130px">
+
+Download for Windows: [Git Bash](https://git-scm.com/download/win)  
+_It emulates a UNIX-like environment_
+
 
 ## Install Atenna on Microsoft VSCode
 <img src="assets/vscode.png" width="130px">
