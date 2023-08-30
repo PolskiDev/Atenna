@@ -656,7 +656,7 @@ private void function main() {
 
 
 # Write & Read Files
-### Write/Overwrite
+### Write/Overwrite - `os.write_file`
 ```
 package org.gabrielmargarido.main
 import os
@@ -666,7 +666,7 @@ private void function main() {
 }  
 ```
 
-### Read
+### Read - `os.read_file`
 ```
 package org.gabrielmargarido.main
 import os
@@ -677,7 +677,7 @@ private void function main() {
 }  
 ```
 
-### Readlines
+### Readlines - `os.read_lines`
 ```
 package org.gabrielmargarido.main
 import os
@@ -691,7 +691,7 @@ private void function main() {
 }  
 ```
 
-### Append
+### Append - `Mix`
 ```
 package org.gabrielmargarido.main
 import os
