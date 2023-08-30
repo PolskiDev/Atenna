@@ -1,22 +1,48 @@
 # Atenna Programming Language
-### Developed by Gabriel Margarido - Version 0.2.2
+### Developed by Gabriel Margarido - Version 0.2.3
 A compiled, multiplatform, statically, structured and strong-typed programming language with a Java-like syntax with a bit of Javascript semantics. That ables you to code instantly fast programs and execute them on LLVM (low-level virtual machine).
 
 <img src="assets/atenna-full.png" width="350px"><br>
 
 Atenna source-files extensions are: `*.atenna` or `*.atn` 
 
-**Note: "sudo" is required**  
-Compile & Install AtennaC and VSCode extension from sources using: `make`  
-Uninstall AtennaC and VSCode extension with: `make uninstall`
+## Install Atenna on Microsoft VSCode
+<img src="assets/vscode.png" width="130px">
 
+**Note: "sudo" is required**  
+Compile & Install AtennaC and Microsoft VSCode extension from sources using:  
+`make install-atenna install-vscode-support VSCODE_EXT=.vscode`  
+
+Uninstall AtennaC and Microsoft VSCode extension with:  
+`make uninstall-atenna uninstall-vscode-support VSCODE_EXT=.vscode`  
+
+## Install Atenna on VSCodium (VSCode OSS)
+<img src="assets/vscodium.png" width="130px">
+
+**Note: "sudo" is required**   
+Compile & Install AtennaC and VSCodium extension from sources using:  
+`make install-atenna install-vscode-support VSCODE_EXT=.vscode-oss`  
+
+Uninstall AtennaC and VSCode extension with:  
+`make uninstall-atenna uninstall-vscode-support VSCODE_EXT=.vscode-oss`  
+
+
+## Fixing cache errors on compilation target
+**Note: "sudo" is required**   
+Reset AtennaC target caches using:  
+`make reset-cache`  
+
+
+## AtennaC - Atenna Compiler
+### Folder Data
 V Middle-end cache folder on UNIX: `/opt/atenna-cache`  
 AtennaC libraries folder on UNIX: `/usr/local/bin/atenna-libs`
 
 
 ### Compile programs on AtennaC
 Help manpage: `sudo atennac --help`  
-Compile to binary: `sudo atennac <file>.atn -o <file>`
+Compile to binary: `sudo atennac <file>.atn -o <file>`  
+Compile to library module: `sudo atennac <file>.atn -lib-module <file>`
     
 View AST - Abstract Syntax Tree: `sudo atennac <file>.atn -ast`  
 
