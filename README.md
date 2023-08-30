@@ -284,7 +284,7 @@ private void function main() {
 ### String Handling - Split beginning by each uppercase/capital letter [A-Z]
 ```
 package org.gabrielmargarido.main
-import os
+# import os
 
 private void function main() {
     let str = "SarahSheevaAlanKay"
@@ -300,7 +300,7 @@ private void function main() {
 ### String Handling - Get string length
 ```
 package org.gabrielmargarido.main
-import os
+# import os
 
 private void function main() {
     let str = "SarahSheevaAlanKay"
@@ -313,7 +313,7 @@ private void function main() {
 ### String Handling - Replace one string by another
 ```
 package org.gabrielmargarido.main
-import os
+# import os
 
 private void function main() {
     let str = "Hello world"
@@ -326,7 +326,7 @@ private void function main() {
 ### String Handling - Split string
 ```
 package org.gabrielmargarido.main
-import os
+# import os
 
 private void function main() {
     let str = "Hello world"
@@ -339,7 +339,7 @@ private void function main() {
 ### String Handling - Extract substring
 ```
 package org.gabrielmargarido.main
-import os
+# import os
 
 private void function main() {
     let str = "Hello world"
@@ -352,7 +352,7 @@ private void function main() {
 ### String Handling - String contains another
 ```
 package org.gabrielmargarido.main
-import os
+# import os
 
 private void function main() {
     let str = "Hello world"
@@ -365,7 +365,7 @@ private void function main() {
 ### String Handling - String to lowercase
 ```
 package org.gabrielmargarido.main
-import os
+# import os
 
 private void function main() {
     let str = "HELLO WORLD"
@@ -376,7 +376,7 @@ private void function main() {
 ### String Handling - String to lowercase
 ```
 package org.gabrielmargarido.main
-import os
+# import os
 
 private void function main() {
     let str = "hello world"
@@ -387,7 +387,7 @@ private void function main() {
 ### String Handling - Find string between delimiters
 ```
 package org.gabrielmargarido.main
-import os
+# import os
 
 private void function main() {
     let str = "hello world to [you and all people]"
