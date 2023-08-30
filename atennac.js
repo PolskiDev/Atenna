@@ -25,6 +25,9 @@ function CopyFile(init, dest) {
 if (args[1] == '-ast') {
     // SHOW ABSTRACT SYNTAX TREE
     console.log(ast_lexer_parser.GenerateAST(args[0]))
+} else if (args[1] == '-lib-module') {
+    fs.mkdirSync(args[2], { recursive: true })
+    codegen.CodeGen(args[0], args[2]+'/'+args[2]+'.v', 'normal')
 
 } else if (args[1] == '-o') {
     // GENERATE .atenna FOLDER
@@ -152,6 +155,7 @@ if (args[1] == '-ast') {
     //console.log("--------------------------------------------------------------------------------\n\n")
     console.log("Options:")
     console.log("<file>.atenna   -o    <file>                   Output is a binary\n")
+    console.log("<file>.atenna   -lib-module    <file>          Output is a library module\n")
     console.log("<file>.atenna   -ast                           Show generated AST\n")
     console.log("--------------------------------------------------------------------------------\n\n")
 }

@@ -11,7 +11,8 @@ function CodeGen(input, output, mode='normal') {
     let codegen = lexer.GenerateAST(input)
     for (var i = 0; i < codegen?.length; i++) {
         if (codegen[i].type == 'initialize_program') {
-            fs.writeFileSync(output, '')
+            let module_name = codegen[i].name
+            fs.writeFileSync(output, 'module '+module_name+'\n')
         }
 
         else if (codegen[i].type == 'package_definition') {
@@ -57,14 +58,20 @@ function CodeGen(input, output, mode='normal') {
 
 
         else if (codegen[i].type == 'function_definition') {
+            // VISIBILITY MODIFIER
             if (codegen[i].data.modifier == tokens.public_modifier) { codegen[i].data.modifier = 'pub'+' ' }
             if (codegen[i].data.modifier == tokens.private_modifier) { codegen[i].data.modifier = '' }
 
+            // RETURN TYPE
             if (codegen[i].data.state_type == tokens.void_value) { codegen[i].data.state_type = '' }
             if (codegen[i].data.state_type == tokens.float32_value) { codegen[i].data.state_type = 'f32' }
             if (codegen[i].data.state_type == tokens.float64_value) { codegen[i].data.state_type = 'f64' }
 
+            // ARGS DATATYPES
+            codegen[i].data.args = codegen[i].data.args.replaceAll(tokens.float32_value, 'f32')
+            codegen[i].data.args = codegen[i].data.args.replaceAll(tokens.float64_value, 'f64')
             
+
             fs.appendFileSync(output, codegen[i].data.modifier+'fn '+codegen[i].data.funcname+codegen[i].data.args+' '+codegen[i].data.state_type+'\n')
         }
         else if (codegen[i].type == 'function_call') {
@@ -72,7 +79,7 @@ function CodeGen(input, output, mode='normal') {
             fs.appendFileSync(output, codegen[i].data.funcname+codegen[i].data.args+'\n')
         }
         else if (codegen[i].type == 'return_value') {
-            fs.appendFileSync(output, codegen[i].data.value+';\n')
+            fs.appendFileSync(output, codegen[i].data.value+'\n')
         }
 
 

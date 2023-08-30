@@ -164,7 +164,7 @@ function GenerateAST(input) {
                             } else {
                                 /** Variable Declaration */
                                 value = value.replaceAll("System.in", 'os.input') 
-                                value = value.replaceAll("System.in.Password", 'os.input_password') 
+                                value = value.replaceAll("System.in.password", 'os.input_password') 
 
 
 

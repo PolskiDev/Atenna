@@ -1,5 +1,5 @@
 # Atenna Programming Language
-### Developed by Gabriel Margarido - Version 0.2.1
+### Developed by Gabriel Margarido - Version 0.2.2
 A compiled, multiplatform, statically, structured and strong-typed programming language with a Java-like syntax with a bit of Javascript semantics. That ables you to code instantly fast programs and execute them on LLVM (low-level virtual machine).
 
 <img src="assets/atenna-full.png" width="350px"><br>
@@ -22,7 +22,7 @@ View AST - Abstract Syntax Tree: `sudo atennac <file>.atn -ast`
 
 ### Basic program structure
 ```
-package org.gabrielmargarido.main
+package main
 # import os
 
 private void function main() {
@@ -32,7 +32,7 @@ private void function main() {
 
 ### Creating functions and returning values
 ```
-package org.gabrielmargarido.main
+package main
 # import os
 
 public int function calculate(x int, y int) {
@@ -55,6 +55,34 @@ import db.mysql
 ```
 # There is a comment here
 ```  
+
+### Creating modules and importing them
+**mymodule.atenna**
+```
+package mymodule
+
+public void function say_hello(person string) {
+    System.out.println("Hello ${person}!")
+}
+```
+*Compile with: `sudo atennac mymodule.atenna -lib-module mymodule`*  
+It's going to create a folder named `mymodule` with `mymodule.v` library file inside it.
+  
+
+**main.atenna**
+```
+package main
+import mymodule
+
+private void function main() {
+    mymodule.say_hello("John Backus")
+}
+```
+*Compile with: `sudo atennac main.atenna -o main`*  
+It's going to compile to an executable `main` file with `mymodule` module included.  
+
+Run `main` executable program with `./main`
+
 
 ### Primitive types
 
@@ -244,7 +272,7 @@ while (true) {
 **Input & Output:**
 *`import os`*  is required for `System.in` method.  
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -254,13 +282,13 @@ private void function main() {
 ```
 
 **Password Input**
-*`import os`*  is required for `System.in.Password` method.  
+*`import os`*  is required for `System.in.password` method.  
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
-    let password = System.in.Password("What is your password? ")
+    let password = System.in.password("What is your password? ")
     System.out.println("Your password is: ${password}")
 }
 ```
@@ -268,7 +296,7 @@ private void function main() {
 **CLI Args:**
 *`import os`*  is required for CLI Args. 
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -281,9 +309,9 @@ private void function main() {
 ```
 
 # String Handling
-### String Handling - Split beginning by each uppercase/capital letter [A-Z]
+### String Handling - Split beginning by each uppercase/capital letter [A-Z] - `str.split_capital(string)`
 ```
-package org.gabrielmargarido.main
+package main
 # import os
 
 private void function main() {
@@ -299,7 +327,7 @@ private void function main() {
 
 ### Get string length - `str.len`
 ```
-package org.gabrielmargarido.main
+package main
 # import os
 
 private void function main() {
@@ -312,7 +340,7 @@ private void function main() {
 
 ### Replace one string by another - `str.replace`
 ```
-package org.gabrielmargarido.main
+package main
 # import os
 
 private void function main() {
@@ -325,7 +353,7 @@ private void function main() {
 
 ### Split string - `str.split`
 ```
-package org.gabrielmargarido.main
+package main
 # import os
 
 private void function main() {
@@ -338,7 +366,7 @@ private void function main() {
 
 ### Extract substring - `str.substr`
 ```
-package org.gabrielmargarido.main
+package main
 # import os
 
 private void function main() {
@@ -351,7 +379,7 @@ private void function main() {
 
 ### String contains another - `str.contains`
 ```
-package org.gabrielmargarido.main
+package main
 # import os
 
 private void function main() {
@@ -364,7 +392,7 @@ private void function main() {
 
 ### String to lowercase - `str.to_lower`
 ```
-package org.gabrielmargarido.main
+package main
 # import os
 
 private void function main() {
@@ -375,7 +403,7 @@ private void function main() {
 
 ### String to uppercase - `str.to_upper`
 ```
-package org.gabrielmargarido.main
+package main
 # import os
 
 private void function main() {
@@ -386,7 +414,7 @@ private void function main() {
 
 ### Find string between delimiters - `str.find_between`
 ```
-package org.gabrielmargarido.main
+package main
 # import os
 
 private void function main() {
@@ -401,7 +429,7 @@ private void function main() {
 # File System Library
 ### Verify if file or directory exists - `os.exists`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -411,9 +439,9 @@ private void function main() {
 }  
 ```
 
-### Verify if file or directory exists in $PATH - `os.exists`
+### Verify if file or directory exists in $PATH - `os.exists_in_system_path`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -425,7 +453,7 @@ private void function main() {
 
 ### Change file or folder permissions (Octal) - `os.chmod`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -436,7 +464,7 @@ private void function main() {
 
 ### Change file or folder group - `os.chown(file, owner, group)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -448,7 +476,7 @@ private void function main() {
 
 ### Copy folder or directory - `os.cp(origin, destination)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -456,9 +484,9 @@ private void function main() {
 }  
 ```
 
-### Copy folder or directory (Recursively) - `os.cp(origin, destination, overwrite)`
+### Copy folder or directory (Recursively) - `os.cp_all(origin, destination, overwrite)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -468,7 +496,7 @@ private void function main() {
 
 ### Run Shell Comamnd (get output) - `os.execute(command)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -482,7 +510,7 @@ private void function main() {
 
 ### Run Shell Comamnd (get code) - `os.system(command)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -496,7 +524,7 @@ private void function main() {
 
 ### Get extension from file - `os.file_ext(filename)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -507,7 +535,7 @@ private void function main() {
 
 ### Get name of file from path - `os.file_name(filename)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -518,7 +546,7 @@ private void function main() {
 
 ### Get file size - `os.file_size(filename)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -527,9 +555,9 @@ private void function main() {
 }  
 ```
 
-### Get full path from executable - `os.find_abs_path_of_executable(filename)`
+### Get full path of executable file - `os.find_abs_path_of_executable(filename)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -540,7 +568,7 @@ private void function main() {
 
 ### Get current directory full path - `os.getwd()`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -549,9 +577,9 @@ private void function main() {
 }  
 ```
 
-### Get name of /home/... - `os.home_dir()`
+### Get name of /home/... ($HOME) - `os.home_dir()`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -562,7 +590,7 @@ private void function main() {
 
 ### Is directory empty? - `os.is_dir_empty(path)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -573,7 +601,7 @@ private void function main() {
 
 ### Is executable - `os.is_executable(path)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -584,7 +612,7 @@ private void function main() {
 
 ### Is a file - `os.is_file(path)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -595,7 +623,7 @@ private void function main() {
 
 ### Is a symlink - `os.is_link(path)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -606,7 +634,7 @@ private void function main() {
 
 ### Create symlink - `os.link(origin, target)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -616,7 +644,7 @@ private void function main() {
 
 ### Create folder - `os.mkdir(path)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -626,7 +654,7 @@ private void function main() {
 
 ### Move folder - `os.mv(origin, target)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -636,7 +664,7 @@ private void function main() {
 
 ### Remove folder - `os.rmdir(path)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -646,7 +674,7 @@ private void function main() {
 
 ### Remove file - `os.rm(path)`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -658,7 +686,7 @@ private void function main() {
 # Write & Read Files
 ### Write/Overwrite - `os.write_file`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -668,7 +696,7 @@ private void function main() {
 
 ### Read - `os.read_file`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -679,7 +707,7 @@ private void function main() {
 
 ### Readlines - `os.read_lines`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -693,7 +721,7 @@ private void function main() {
 
 ### Append - `Mix`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -709,7 +737,7 @@ private void function main() {
 # Operating System Library
 ### Get Uname - `os.uname()`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -720,7 +748,7 @@ private void function main() {
 
 ### Get OS Name - `os.user_os()`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
@@ -731,7 +759,7 @@ private void function main() {
 
 ### Get all usernames in OS - `os.user_names()`
 ```
-package org.gabrielmargarido.main
+package main
 import os
 
 private void function main() {
