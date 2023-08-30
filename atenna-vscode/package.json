@@ -1,0 +1,26 @@
+{
+  "name": "atenna",
+  "displayName": "Atenna",
+  "description": "Atenna Programming Language",
+  "version": "0.0.1",
+  "icon": "./atenna.png",
+  "engines": {
+    "vscode": "^1.81.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "atenna",
+      "aliases": ["Atenna Programming Language", "atenna"],
+      "extensions": [".atn",".atenna"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "atenna",
+      "scopeName": "source.atenna",
+      "path": "./syntaxes/atenna.tmLanguage.json"
+    }]
+  }
+}

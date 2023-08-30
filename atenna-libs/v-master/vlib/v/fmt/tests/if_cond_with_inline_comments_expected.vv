@@ -1,0 +1,12 @@
+fn main() {
+	a, b := true, true
+
+	if a || b // a
+	  {
+		println('hi')
+	}
+
+	if a || b /* a */  {
+		println('hi')
+	}
+}

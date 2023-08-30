@@ -1,0 +1,29 @@
+# Atenna - Alternative to V
+package main
+import fs
+let z = 3455
+let alpha[] = ( 23, 56 )
+a = 34
+public void function foo() {
+    for num in (numbers) {
+
+    }
+
+    for i in (1..5) {
+
+    }
+    return 1
+}
+
+public void function bar() {
+    if (x > 3) {
+        System.out.println("Grower")
+    }
+    let x = System.in("Type: ")
+}
+
+private int function main() {
+    System.out.println("Hello world")
+    return 0
+}
+

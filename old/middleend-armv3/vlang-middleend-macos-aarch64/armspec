@@ -1,0 +1,30 @@
+%package_name "VLangCompilerMiddleEnd_4.0"
+%version "4.0"
+%license "MIT"
+%author "Unknown"
+
+%install
+"v" : "/usr/local/bin/v"
+
+%install
+"vlib" : "/usr/local/bin/vlib"
+
+%install
+"v.mod" : "/usr/local/bin/v.mod"
+
+%install
+"cmd" : "/usr/local/bin/cmd"
+
+
+%install
+"vc" : "/usr/local/bin/vc"
+
+%install
+"thirdparty" : "/usr/local/bin/thirdparty"
+
+%remove "/usr/local/bin/v"
+%remove "/usr/local/bin/vlib"
+%remove "/usr/local/bin/v.mod"
+%remove "/usr/local/bin/cmd"
+%remove "/usr/local/bin/thirdparty"
+%remove "/usr/local/bin/vc"

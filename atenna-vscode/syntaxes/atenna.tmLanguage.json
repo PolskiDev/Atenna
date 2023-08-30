@@ -1,0 +1,86 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Atenna Programming Language",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#numbers"
+		},
+        {
+            "include": "#storage"
+        }
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.atenna",
+				"match": "\\b(if|elseif|else|for|in|return|import|println|print)\\b"
+			}]
+		},
+		"comments": {
+            "patterns": [{
+                "name": "comment.block.documentation.atenna",
+                "begin": "#",
+                "beginCaptures": {
+                    "0": {
+                        "name": "punctuation.definition.comment.begin.atenna"
+                    }
+                },
+                "end": "\n",
+                "endCaptures": {
+                    "0": {
+                        "name": "punctuation.definition.comment.end.atenna"
+                    }
+                },
+                "patterns": [{
+                    "include": "#comments"
+            	}]
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.atenna",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.atenna",
+					"match": "\\\\."
+				}
+			]
+		},
+		"numbers": {
+            "patterns": [{
+                "name": "constant.numeric.exponential.atenna",
+                "match": "([0-9]+(_?))+(\\.)([0-9]+[eE][-+]?[0-9]+)"
+            }, {
+                "name": "constant.numeric.float.atenna",
+                "match": "([0-9]+(_?))+(\\.)([0-9]+)"
+            }, {
+                "name": "constant.numeric.binary.atenna",
+                "match": "(?:0b)(?:(?:[0-1]+)(?:_?))+"
+            }, {
+                "name": "constant.numeric.octal.atenna",
+                "match": "(?:0o)(?:(?:[0-7]+)(?:_?))+"
+            }, {
+                "name": "constant.numeric.hex.atenna",
+                "match": "(?:0x)(?:(?:[0-9a-fA-F]+)(?:_?))+"
+            }, {
+                "name": "constant.numeric.integer.atenna",
+                "match": "(?:(?:[0-9]+)(?:[_]?))+"
+            }]
+        },
+        "storage": {
+            "name": "storage.modifier.atenna",
+            "match": "\\b(package|let|public|private|function|int|i8|i16|i64|i128|float32|float64|f32|f64|bool|void|string|String)\\b"
+        }
+	},
+	"scopeName": "source.atenna"
+}
