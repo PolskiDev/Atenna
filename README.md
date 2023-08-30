@@ -297,7 +297,7 @@ private void function main() {
 }  
 ```
 
-### String Handling - Get string length
+### Get string length - `str.len`
 ```
 package org.gabrielmargarido.main
 # import os
@@ -310,7 +310,7 @@ private void function main() {
 }  
 ```
 
-### String Handling - Replace one string by another
+### Replace one string by another - `str.replace`
 ```
 package org.gabrielmargarido.main
 # import os
@@ -323,7 +323,7 @@ private void function main() {
 }  
 ```
 
-### String Handling - Split string
+### Split string - `str.split`
 ```
 package org.gabrielmargarido.main
 # import os
@@ -336,7 +336,7 @@ private void function main() {
 }  
 ```
 
-### String Handling - Extract substring
+### Extract substring - `str.substr`
 ```
 package org.gabrielmargarido.main
 # import os
@@ -349,7 +349,7 @@ private void function main() {
 }  
 ```
 
-### String Handling - String contains another
+### String contains another - `str.contains`
 ```
 package org.gabrielmargarido.main
 # import os
@@ -362,7 +362,7 @@ private void function main() {
 }  
 ```
 
-### String Handling - String to lowercase
+### String to lowercase - `str.to_lower`
 ```
 package org.gabrielmargarido.main
 # import os
@@ -373,7 +373,7 @@ private void function main() {
 }  
 ```
 
-### String Handling - String to lowercase
+### String to uppercase - `str.to_upper`
 ```
 package org.gabrielmargarido.main
 # import os
@@ -384,7 +384,7 @@ private void function main() {
 }  
 ```
 
-### String Handling - Find string between delimiters
+### Find string between delimiters - `str.find_between`
 ```
 package org.gabrielmargarido.main
 # import os
