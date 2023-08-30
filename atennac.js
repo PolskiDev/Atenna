@@ -4,10 +4,11 @@ const args = process.argv.slice(2)
 const fs = require('fs')
 const ast_lexer_parser = require('./atenna-libs/ast-lexer-parser')
 const codegen = require('./atenna-libs/codegen')
-const token_table = require('./atenna-libs/token_table')
 const { execSync } = require('child_process')
-const { dir } = require('console')
 
+
+// V MIDDLE-END BINARIES FOLDER
+const HOME_ATENNA_CACHE = '/opt/atenna-cache/'
 
 // V MIDDLE-END CACHE FOLDER OF ALL SUPPORTED OS
 const DARWIN_ARM64_CACHE = 'v-darwin-aarch64-cache'
@@ -17,13 +18,7 @@ const LINUX_x64_CACHE = 'v-linux-x64-cache'
 const UNKNOWN_CPU_ARCH_CACHE = 'v-unknown-cpu-arch-cache'
 
 function CopyFile(init, dest) {
-    if (process.platform == 'win32') {
-        execSync('npm install fs-extra')
-    } else {
-        execSync('npm install fs-extra')
-    }
-    const fse = require('fs-extra');
-    fse.copySync(init,dest)
+    fs.cpSync(init, dest, { recursive: true })
 }
 
 // CLI ARGS LOGIC
@@ -32,6 +27,9 @@ if (args[1] == '-ast') {
     console.log(ast_lexer_parser.GenerateAST(args[0]))
 
 } else if (args[1] == '-o') {
+    // GENERATE .atenna FOLDER
+    //fs.mkdirSync(HOME_ATENNA_CACHE.slice(0,-1), {recursive: true})
+
     // GENERATE OBJECT CODE [.v]
     codegen.CodeGen(args[0], args[2]+'.v', 'normal')
 
@@ -39,20 +37,20 @@ if (args[1] == '-ast') {
 
     /* Darwin Apple Silicon */
     if (process.arch == 'arm64' && process.platform == 'darwin') {
-        if (!fs.existsSync(__dirname+'/atenna-libs/'+DARWIN_ARM64_CACHE)) {
-            CopyFile(__dirname+'/atenna-libs/v-master', __dirname+'/atenna-libs/'+DARWIN_ARM64_CACHE)
-            execSync('make -C '+__dirname+'/atenna-libs/'+DARWIN_ARM64_CACHE+' && '+__dirname+'/atenna-libs/'+DARWIN_ARM64_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
+        if (!fs.existsSync(HOME_ATENNA_CACHE+DARWIN_ARM64_CACHE)) {
+            CopyFile(__dirname+'/atenna-libs/v-master', HOME_ATENNA_CACHE+DARWIN_ARM64_CACHE)
+            execSync('make -C '+HOME_ATENNA_CACHE+DARWIN_ARM64_CACHE+' && '+HOME_ATENNA_CACHE+DARWIN_ARM64_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
         } else {
-            execSync(__dirname+'/atenna-libs/'+DARWIN_ARM64_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
+            execSync(HOME_ATENNA_CACHE+DARWIN_ARM64_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
         }
     
     /* Darwin Intel-64 */
     } else if (process.arch == 'x64' && process.platform == 'darwin') {
-        if (!fs.existsSync(__dirname+'/atenna-libs/'+DARWIN_x64_CACHE)) {
-            CopyFile(__dirname+'/atenna-libs/v-master', __dirname+'/atenna-libs/'+DARWIN_x64_CACHE)
-            execSync('make -C '+__dirname+'/atenna-libs/'+DARWIN_x64_CACHE+' && '+__dirname+'/atenna-libs/'+DARWIN_x64_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
+        if (!fs.existsSync(HOME_ATENNA_CACHE+DARWIN_x64_CACHE)) {
+            CopyFile(__dirname+'/atenna-libs/v-master', HOME_ATENNA_CACHE+DARWIN_x64_CACHE)
+            execSync('make -C '+HOME_ATENNA_CACHE+DARWIN_x64_CACHE+' && '+HOME_ATENNA_CACHE+DARWIN_x64_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
         } else {
-            execSync(__dirname+'/atenna-libs/'+DARWIN_x64_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
+            execSync(HOME_ATENNA_CACHE+DARWIN_x64_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
         }
     
     /* Windows 32-bit and 64-bit */
@@ -62,30 +60,30 @@ if (args[1] == '-ast') {
 
     /* Linux Intel-32 */
     else if (process.arch == 'x32' && process.platform == 'linux') {
-        if (!fs.existsSync(__dirname+'/atenna-libs/'+LINUX_x86_CACHE)) {
-            CopyFile(__dirname+'/atenna-libs/v-master', __dirname+'/atenna-libs/'+LINUX_x86_CACHE)
-            execSync('make -C '+__dirname+'/atenna-libs/'+LINUX_x86_CACHE+' && '+__dirname+'/atenna-libs/'+LINUX_x86_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
+        if (!fs.existsSync(HOME_ATENNA_CACHE+LINUX_x86_CACHE)) {
+            CopyFile(__dirname+'/atenna-libs/v-master', HOME_ATENNA_CACHE+LINUX_x86_CACHE)
+            execSync('make -C '+HOME_ATENNA_CACHE+LINUX_x86_CACHE+' && '+HOME_ATENNA_CACHE+LINUX_x86_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
         } else {
-            execSync(__dirname+'/atenna-libs/'+LINUX_x86_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
+            execSync(HOME_ATENNA_CACHE+LINUX_x86_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
         }
     }
     /* Linux Intel-64 */
     else if (process.arch == 'x64' && process.platform == 'linux') {
-        if (!fs.existsSync(__dirname+'/atenna-libs/'+LINUX_x64_CACHE)) {
-            CopyFile(__dirname+'/atenna-libs/v-master', __dirname+'/atenna-libs/'+LINUX_x64_CACHE)
-            execSync('make -C '+__dirname+'/atenna-libs/'+LINUX_x64_CACHE+' && '+__dirname+'/atenna-libs/'+LINUX_x64_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
+        if (!fs.existsSync(HOME_ATENNA_CACHE+LINUX_x64_CACHE)) {
+            CopyFile(__dirname+'/atenna-libs/v-master', HOME_ATENNA_CACHE+LINUX_x64_CACHE)
+            execSync('make -C '+HOME_ATENNA_CACHE+LINUX_x64_CACHE+' && '+HOME_ATENNA_CACHE+LINUX_x64_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
         } else {
-            execSync(__dirname+'/atenna-libs/'+LINUX_x64_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
+            execSync(HOME_ATENNA_CACHE+LINUX_x64_CACHE+'/v '+args[2]+'.v', { overwrite: true|false })
         }
     }
 
     /* Unknown OS and/or CPU Architecture */
     else {
-        if (!fs.existsSync(__dirname+'/atenna-libs/'+UNKNOWN_CPU_ARCH_CACHE)) {
-            CopyFile(__dirname+'/atenna-libs/v-master', __dirname+'/atenna-libs/'+UNKNOWN_CPU_ARCH_CACHE)
-            execSync('make -C '+__dirname+'/atenna-libs/'+UNKNOWN_CPU_ARCH_CACHE+' && '+__dirname+'/atenna-libs/'+UNKNOWN_CPU_ARCH_CACHE+'/v '+args[2]+'.v'), { overwrite: true|false }
+        if (!fs.existsSync(HOME_ATENNA_CACHE+UNKNOWN_CPU_ARCH_CACHE)) {
+            CopyFile(__dirname+'/atenna-libs/v-master', HOME_ATENNA_CACHE+UNKNOWN_CPU_ARCH_CACHE)
+            execSync('make -C '+HOME_ATENNA_CACHE+UNKNOWN_CPU_ARCH_CACHE+' && '+HOME_ATENNA_CACHE+UNKNOWN_CPU_ARCH_CACHE+'/v '+args[2]+'.v'), { overwrite: true|false }
         } else {
-            execSync(__dirname+'/atenna-libs/'+UNKNOWN_CPU_ARCH_CACHE+'/v '+args[2]+'.v'), { overwrite: true|false }
+            execSync(HOME_ATENNA_CACHE+UNKNOWN_CPU_ARCH_CACHE+'/v '+args[2]+'.v'), { overwrite: true|false }
         }
     }
 
@@ -95,7 +93,7 @@ if (args[1] == '-ast') {
 } else {
     console.log("\n                 Atenna Compiler")
     console.log("------------------------------------------------------")
-    console.log("Syntax:       atennac  <options>")
+    console.log("Syntax:       sudo atennac  <options>")
     console.log("------------------------------------------------------\n\n")
 
     /*console.log("Plataformas suportadas:")

@@ -164,6 +164,7 @@ function GenerateAST(input) {
                             } else {
                                 /** Variable Declaration */
                                 value = value.replaceAll("System.in", 'os.input') 
+                                value = value.replaceAll("System.in.Password", 'os.input_password') 
 
 
 
@@ -407,21 +408,8 @@ function GenerateAST(input) {
             // Condicionais
             else if (stack[i] == token_table.tokens.conditional_if
             && line.includes(token_table.tokens.commentary) == false) {
-                let expression = stack[i+1]
+                let expression = line.slice(line.indexOf(token_table.tokens.conditional_if)+token_table.tokens.conditional_if.length, line.lastIndexOf(token_table.tokens.open_block)).slice(2,-2)
                 let opening_block = stack[i+2]
-
-                // Novos operadores
-                //expression = expression.replace(/ is true/gi,"")
-
-                expression = expression.replace(token_table.tokens.operator_equal," == ")
-                expression = expression.replace(token_table.tokens.operator_notequal," ~= ")
-                expression = expression.replace(token_table.tokens.operator_and," and ")
-                expression = expression.replace(token_table.tokens.operator_or," or ")
-                expression = expression.replace(token_table.tokens.operator_not,"not ")
-
-                expression = expression.replace(token_table.tokens.typedef_true, 'true')
-                expression = expression.replace(token_table.tokens.typedef_false, 'false')
-                expression = expression.replace(token_table.tokens.typedef_null, 'nil')
 
                 if (opening_block == token_table.tokens.open_block) {
                     let data = {
@@ -441,21 +429,8 @@ function GenerateAST(input) {
 
             else if(stack[i] == token_table.tokens.conditional_elsif
             && line.includes(token_table.tokens.commentary) == false) {
-                let expression = stack[i+1]
+                let expression = line.slice(line.indexOf(token_table.tokens.conditional_elsif)+token_table.tokens.conditional_elsif.length, line.lastIndexOf(token_table.tokens.open_block)).slice(2,-2)
                 let opening_block = stack[i+2]
-
-                // Novos operadores
-                //expression = expression.replace(/ is true/gi,"")
-
-                expression = expression.replace(token_table.tokens.operator_equal," == ")
-                expression = expression.replace(token_table.tokens.operator_notequal," ~= ")
-                expression = expression.replace(token_table.tokens.operator_and," and ")
-                expression = expression.replace(token_table.tokens.operator_or," or ")
-                expression = expression.replace(token_table.tokens.operator_not,"not ")
-
-                expression = expression.replace(token_table.tokens.typedef_true, 'true')
-                expression = expression.replace(token_table.tokens.typedef_false, 'false')
-                expression = expression.replace(token_table.tokens.typedef_null, 'nil')
 
 
                 if (opening_block == token_table.tokens.open_block) {
@@ -483,20 +458,8 @@ function GenerateAST(input) {
             }
             else if (stack[i] == token_table.tokens.loop_while
             && line.includes(token_table.tokens.commentary) == false) {
-                let expression = stack[i+1]
+                let expression = line.slice(line.indexOf(token_table.tokens.loop_while)+token_table.tokens.loop_while.length, line.lastIndexOf(token_table.tokens.open_block)).slice(2,-2)
                 let opening_block = stack[i+2]
-
-                // Novos operadores
-                expression = expression.replace(token_table.tokens.operator_equal," == ")
-                expression = expression.replace(token_table.tokens.operator_notequal," != ")
-                expression = expression.replace(token_table.tokens.operator_and," && ")
-                expression = expression.replace(token_table.tokens.operator_or," || ")
-                expression = expression.replace(token_table.tokens.operator_not,"!")
-
-                expression = expression.replace(token_table.tokens.typedef_true, 'true')
-                expression = expression.replace(token_table.tokens.typedef_false, 'false')
-                expression = expression.replace(token_table.tokens.typedef_null, 'nil')
-
 
                 if (opening_block != token_table.tokens.open_block) {
                     console.log("Syntax Error: Open block of code on while loop "+expression+" - line error: "+linecounter)

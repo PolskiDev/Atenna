@@ -10,6 +10,16 @@ Atenna source-files extensions are: `*.atenna` or `*.atn`
 Compile & Install AtennaC and VSCode extension from sources using: `make`  
 Uninstall AtennaC and VSCode extension with: `make uninstall`
 
+V Middle-end cache folder on UNIX: `/opt/atenna-cache`  
+AtennaC libraries folder on UNIX: `/usr/local/bin/atenna-libs`
+
+
+### Compile programs on AtennaC
+Help manpage: `sudo atennac --help`  
+Compile to binary: `sudo atennac <file>.atn -o <file>`
+    
+View AST - Abstract Syntax Tree: `sudo atennac <file>.atn -ast`  
+
 ### Basic program structure
 ```
 package org.gabrielmargarido.main
@@ -243,6 +253,18 @@ private void function main() {
 }
 ```
 
+**Password Input**
+*`import os`*  is required for `System.in.Password` method.  
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let password = System.in.Password("What is your password? ")
+    System.out.println("Your password is: ${password}")
+}
+```
+
 **CLI Args:**
 *`import os`*  is required for CLI Args. 
 ```
@@ -256,4 +278,468 @@ private void function main() {
         System.out.println("Argument: ${args[i]}")
     }
 }
+```
+
+# String Handling
+### String Handling - Split beginning by each uppercase/capital letter [A-Z]
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let str = "SarahSheevaAlanKay"
+    let result = strings.split_capital(str)
+
+    for i in (str) {
+        System.out.println(str[i])
+    }
+    
+}  
+```
+
+### String Handling - Get string length
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let str = "SarahSheevaAlanKay"
+    let length = str.len
+
+    System.out.println(length)
+}  
+```
+
+### String Handling - Replace one string by another
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let str = "Hello world"
+    let next = str.replace("Hello", "Bye")
+
+    System.out.println(next)
+}  
+```
+
+### String Handling - Split string
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let str = "Hello world"
+    let splitted = str.split(" ")
+
+    System.out.println(splitted)
+}  
+```
+
+### String Handling - Extract substring
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let str = "Hello world"
+    let substring = str.substr(4,-2)
+
+    System.out.println(substring)
+}  
+```
+
+### String Handling - String contains another
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let str = "Hello world"
+    let another = str.contains("world")
+
+    System.out.println(another)
+}  
+```
+
+### String Handling - String to lowercase
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let str = "HELLO WORLD"
+    System.out.println(str.to_lower())
+}  
+```
+
+### String Handling - String to lowercase
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let str = "hello world"
+    System.out.println(str.to_upper())
+}  
+```
+
+### String Handling - Find string between delimiters
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let str = "hello world to [you and all people]"
+    let x = str.find_between("[", "]")
+    
+    System.out.println(x)
+}  
+```
+
+
+# File System Library
+### Verify if file or directory exists - `os.exists`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    if (os.exists("test.txt")) {
+        System.out.println("Yes, it exists")
+    }
+}  
+```
+
+### Verify if file or directory exists in $PATH - `os.exists`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    if (os.exists_in_system_path("test.txt")) {
+        System.out.println("Yes, it exists in PATH")
+    }
+}  
+```
+
+### Change file or folder permissions (Octal) - `os.chmod`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let perm = 0o600
+    os.chmod("test.txt", perm)
+}  
+```
+
+### Change file or folder group - `os.chown(file, owner, group)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let owner = "gabrielmargarido"
+    let group = "staff"
+    os.chown("test.txt", owner, group)
+}  
+```
+
+### Copy folder or directory - `os.cp(origin, destination)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    os.cp("test.txt", "copied_test.txt")
+}  
+```
+
+### Copy folder or directory (Recursively) - `os.cp(origin, destination, overwrite)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    os.cp_all("test.txt", "copied_test.txt", true)
+}  
+```
+
+### Run Shell Comamnd (get output) - `os.execute(command)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    # Run command
+    os.execute("ls -lha")
+
+    # Get return output from command
+    let x = os.execute("ls")
+}  
+```
+
+### Run Shell Comamnd (get code) - `os.system(command)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    # Run command
+    os.system("ls -lha")
+
+    # Get return code from command
+    let x = os.system("ls")
+}  
+```
+
+### Get extension from file - `os.file_ext(filename)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let ext = os.file_ext("file.c")
+    System.out.println(ext)
+}  
+```
+
+### Get name of file from path - `os.file_name(filename)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let fname = os.file_name("file.c")
+    System.out.println(fname)
+}  
+```
+
+### Get file size - `os.file_size(filename)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let fsize = os.file_size("file.c")
+    System.out.println(fsize)
+}  
+```
+
+### Get full path from executable - `os.find_abs_path_of_executable(filename)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let full = os.find_abs_path_of_executable("file.c")
+    System.out.println(full)
+}  
+```
+
+### Get current directory full path - `os.getwd()`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let cwd = os.getwd()
+    System.out.println(cwd)
+}  
+```
+
+### Get name of /home/... - `os.home_dir()`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let home = os.home_dir()
+    System.out.println(home)
+}  
+```
+
+### Is directory empty? - `os.is_dir_empty(path)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let dir = os.is_dir_empty("myfolder/images")
+    System.out.println(dir)
+}  
+```
+
+### Is executable - `os.is_executable(path)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let exec = os.is_executable("app.exe")
+    System.out.println(exec)
+}  
+```
+
+### Is a file - `os.is_file(path)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let isfile = os.is_file("app.exe")
+    System.out.println(isfile)
+}  
+```
+
+### Is a symlink - `os.is_link(path)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let islink = os.is_link("htdocs")
+    System.out.println(islink)
+}  
+```
+
+### Create symlink - `os.link(origin, target)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    os.link("~/Documents", "~/Desktop/MyDoc")
+}  
+```
+
+### Create folder - `os.mkdir(path)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    os.mkdir("myfolder")
+}  
+```
+
+### Move folder - `os.mv(origin, target)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    os.mv("myfolder", "youfolder")
+}  
+```
+
+### Remove folder - `os.rmdir(path)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    os.rmdir("myfolder")
+}  
+```
+
+### Remove file - `os.rm(path)`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    os.rm("myfile")
+}  
+```
+
+
+# Write & Read Files
+### Write/Overwrite
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    os.write_file("MyFile.txt", "Hello World!\n")
+}  
+```
+
+### Read
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let filereader = os.read_file("MyFile.txt")
+    System.out.println(filereader)
+}  
+```
+
+### Readlines
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let filereader = os.read_lines("MyFile.txt")
+
+    for line in (filereader) {
+       System.out.println(filereader[line]) 
+    }
+}  
+```
+
+### Append
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    # Read all temporary
+    let read = os.read_file("MyFile.txt")
+    let writable_message = "Plus a message\n"
+
+    # Write all - append
+    os.write_file(read+writable_message)
+}  
+```
+
+# Operating System Library
+### Get Uname - `os.uname()`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let uname = os.uname()
+    System.out.println(uname)
+}  
+```
+
+### Get OS Name - `os.user_os()`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let UserOS = os.user_os()
+    System.out.println(UserOS)
+}  
+```
+
+### Get all usernames in OS - `os.user_names()`
+```
+package org.gabrielmargarido.main
+import os
+
+private void function main() {
+    let usernames = os.user_names()
+
+    for i in (usernames) {
+        System.out.println(usernames[i])
+    }
+    
+}  
 ```

@@ -77,10 +77,10 @@ function CodeGen(input, output, mode='normal') {
 
 
         else if (codegen[i].type == 'conditional_if') {
-            fs.appendFileSync(output, 'if '+codegen[i].data.expression.slice(1,-1))
+            fs.appendFileSync(output, 'if '+codegen[i].data.expression)
         }
         else if (codegen[i].type == 'conditional_elsif') {
-            fs.appendFileSync(output, 'elseif '+codegen[i].data.expression.slice(1,-1))
+            fs.appendFileSync(output, 'elseif '+codegen[i].data.expression)
         }
         else if (codegen[i].type == 'conditional_final') {
             fs.appendFileSync(output, 'else')
@@ -88,7 +88,7 @@ function CodeGen(input, output, mode='normal') {
 
 
         else if (codegen[i].type == 'loop_while') {
-            fs.appendFileSync(output, 'while '+codegen[i].data.expression.slice(1,-1))
+            fs.appendFileSync(output, 'while '+codegen[i].data.expression)
         }
         else if (codegen[i].type == 'loop_for') {
             fs.appendFileSync(output, `for mut ${codegen[i].data.iterator} in ${codegen[i].data.iterand} `)

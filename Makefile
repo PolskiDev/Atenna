@@ -9,3 +9,4 @@ uninstall:
 	sudo rm -Rfv /usr/local/bin/atennac
 	sudo rm -Rfv /usr/local/bin/atenna-libs
 	rm -Rfv ~/.vscode/extensions/atenna-vscode
+	sudo rm -Rfv /opt/atenna-cache
