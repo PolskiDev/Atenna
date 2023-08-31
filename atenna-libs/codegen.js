@@ -20,8 +20,28 @@ function CodeGen(input, output, mode='normal') {
         }
         
         else if (codegen[i].type == 'enum_value') {
-            codegen[i].typed = codegen[i].typed.replaceAll('float32', 'f32')
-            codegen[i].typed = codegen[i].typed.replaceAll('float64', 'f64')
+            codegen[i].typed = codegen[i].typed.replaceAll('float32[]', '[]f32')
+            codegen[i].typed = codegen[i].typed.replaceAll('float64[]', '[]f64')
+
+            codegen[i].typed = codegen[i].typed.replaceAll('int[]', '[]int')
+            codegen[i].typed = codegen[i].typed.replaceAll('i8[]', '[]i8')
+            codegen[i].typed = codegen[i].typed.replaceAll('i16[]', '[]i16')
+            codegen[i].typed = codegen[i].typed.replaceAll('i64[]', '[]i64')
+            codegen[i].typed = codegen[i].typed.replaceAll('i128[]', '[]i128')
+
+            codegen[i].typed = codegen[i].typed.replaceAll('u32[]', '[]u32')
+            codegen[i].typed = codegen[i].typed.replaceAll('u8[]', '[]u8')
+            codegen[i].typed = codegen[i].typed.replaceAll('u16[]', '[]u16')
+            codegen[i].typed = codegen[i].typed.replaceAll('u64[]', '[]u64')
+            codegen[i].typed = codegen[i].typed.replaceAll('u128[]', '[]u128')
+
+            codegen[i].typed = codegen[i].typed.replaceAll('usize[]', '[]usize')
+            codegen[i].typed = codegen[i].typed.replaceAll('isize[]', '[]isize')
+
+            codegen[i].typed = codegen[i].typed.replaceAll('string[]', '[]string')
+            codegen[i].typed = codegen[i].typed.replaceAll('bool[]', '[]bool')
+
+
             fs.appendFileSync(output, codegen[i].name+' '+codegen[i].typed+'\n')
         }
 

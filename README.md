@@ -1,5 +1,5 @@
 # Atenna Programming Language
-### Developed by Gabriel Margarido - Version 0.2.5
+### Developed by Gabriel Margarido - Version 0.2.6
 A compiled, multiplatform, statically, structured and strongly-typed programming language with a Java-like syntax and a bit of Javascript semantics. That ables you to code instantly fast programs and execute them on LLVM (low-level virtual machine).
 
 <img src="assets/atenna-full.png" width="350px"><br>
@@ -34,10 +34,23 @@ Uninstall AtennaC and VSCode extension with:
 `make uninstall-atenna uninstall-vscode-support VSCODE_EXT=.vscode-oss`  
 
 
-## Fixing cache errors on compilation target
+## Fixing cache errors on compilation target on Microsoft VSCode
+<img src="assets/vscode.png" width="100px">
+
 **Note: "sudo" is required**   
-Reset AtennaC target caches using:  
-`make reset-cache`  
+Reset AtennaC target and VSCode caches using:  
+```
+make reset-cache VSCODE_EXT=.vscode
+```  
+
+## Fixing cache errors on compilation target on VSCodium
+<img src="assets/vscodium.png" width="100px">
+
+**Note: "sudo" is required**   
+Reset AtennaC target and VSCodium caches using:  
+```
+make reset-cache VSCODE_EXT=.vscode-oss
+```  
 
 
 ## AtennaC - Atenna Compiler
@@ -119,15 +132,18 @@ Run `main` executable program with `./main`
 
 ### Primitive types
 
-Integer 8-bit: `i8`  
-Integer 16-bit: `i16`  
-Integer 32-bit: `int`  
-Integer 64-bit: `i64`  
+Signed Integer 8-bit: `i8`  
+Signed Integer 16-bit: `i16`  
+Signed Integer 32-bit: `int`  
+Signed Integer 64-bit: `i64`  
 
 Unsigned integer 8-bit: `u8`  
 Unsigned integer 16-bit: `u16`  
 Unsigned integer 32-bit: `u32`  
-Unsigned integer 64-bit: `u64`  
+Unsigned integer 64-bit: `u64` 
+
+Unsigned integer CPU Architecture: `usize`  
+Signed integer CPU Architecture: `isize`   
 
 Unicode string: `rune`  
 ASCII string: `string` 
@@ -375,6 +391,42 @@ enum Person {
 
 const gabriel = new Person(18, "Gabriel", "Margarido")
 ```
+
+
+## JSON Encode - `json.encode`
+**Requires: `import os` and `import json`**
+```
+enum Person {
+    def name string
+    def surname string
+    def age int
+}
+const aline = new &Person("Aline", "Kocher", 23)
+const x = json.encode(aline)
+os.write_file("aline.json", x)!
+```
+
+## JSON Decode - `json.decode`
+**Requires: `import os` and `import json`**
+```
+enum Person {
+    def name string
+    def surname string
+    def age int
+}
+const y = os.read_file("aline.json")!
+let aline_from_json = json.decode(Person, y)
+```
+
+### Access decoded JSON properties
+```
+System.out.println("Aline first name: "+aline_from_json.name)
+System.out.println("Aline surname: "+aline_from_json.surname)
+System.out.println("Aline age: "+aline_from_json.age)
+
+System.out.println("Aline: "+aline_from_json)
+```
+
 
 # String Handling
 ### String Handling - Split beginning by each uppercase/capital letter [A-Z] - `str.split_capital(string)`
@@ -752,34 +804,34 @@ private void function main() {
 
 
 # Write & Read Files
-### Write/Overwrite - `os.write_file`
+### Write/Overwrite - `os.write_file!`
 ```
 package main
 import os
 
 private void function main() {
-    os.write_file("MyFile.txt", "Hello World!\n")
+    os.write_file("MyFile.txt", "Hello World!\n")!
 }  
 ```
 
-### Read - `os.read_file`
+### Read - `os.read_file!`
 ```
 package main
 import os
 
 private void function main() {
-    let filereader = os.read_file("MyFile.txt")
+    let filereader = os.read_file("MyFile.txt")!
     System.out.println(filereader)
 }  
 ```
 
-### Readlines - `os.read_lines`
+### Readlines - `os.read_lines!`
 ```
 package main
 import os
 
 private void function main() {
-    let filereader = os.read_lines("MyFile.txt")
+    let filereader = os.read_lines("MyFile.txt")!
 
     for line in (filereader) {
        System.out.println(filereader[line]) 
@@ -838,4 +890,75 @@ private void function main() {
     }
     
 }  
+```
+
+## MySQL Database Access
+### Import MySQL module:  
+```
+import db.mysql
+```  
+
+### Open connection:
+```
+const mysql_db = new mysql.Connection(username: "root", dbname: "db_users", password: "123")
+mysql_db.connect()?
+```  
+
+### Close connection:
+```
+mysql_db.close()
+```
+
+### Change selected database:
+```
+mysql_db.select_db('db_users')?
+```
+
+
+### Do a query:  
+```
+const query = mysql_db.query("SELECT * FROM users")?
+```
+
+
+### SQL `SELECT` query handling
+```
+let m = query.maps()
+for element in (m) {
+    System.out.println(element['property'])
+}
+```
+
+### Free used RAM memory on query
+```
+query.free()
+```
+
+## Cryptography
+### SHA512
+**Requires: `import crypto.sha512`**
+```
+const out_hash = sha512.hexhash("Hello world")
+System.out.println(out_hash)
+```
+
+### SHA256
+**Requires: `import crypto.sha256`**
+```
+const out_hash = sha256.hexhash("Hello world")
+System.out.println(out_hash)
+```
+
+### SHA1
+**Requires: `import crypto.sha1`**
+```
+const out_hash = sha1.hexhash("Hello world")
+System.out.println(out_hash)
+```
+
+### MD5
+**Requires: `import crypto.md5`**
+```
+const out_hash = md5.hexhash("Hello world")
+System.out.println(out_hash)
 ```

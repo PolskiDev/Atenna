@@ -11,7 +11,8 @@ private void function main() {
     enum Person {
         def age int
         def height float64
-        def fullName string
+        def fullName string[]
     }
     let gabriel = new Person(18, 1.75, "Gabriel Margarido")
+    const x = 13
 }

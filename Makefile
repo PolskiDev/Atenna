@@ -18,10 +18,10 @@ uninstall-atenna:
 	sudo rm -Rfv /opt/atenna-cache
 
 reset-cache:
-	sudo rm -Rfv /opt/atenna-cache
+	sudo rm -Rfv /opt/atenna-cache ~/$(VSCODE_EXT)/extensions/extensions.json
 
 install-vscode-support:
 	cp -Rfv atenna-vscode ~/$(VSCODE_EXT)/extensions/atenna-vscode
 
 uninstall-vscode-support:
-	rm -Rfv ~/$(VSCODE_EXT)/extensions/atenna-vscode
+	rm -Rfv ~/$(VSCODE_EXT)/extensions/atenna-vscode ~/$(VSCODE_EXT)/extensions/extensions.json
