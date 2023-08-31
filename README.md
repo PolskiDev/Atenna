@@ -152,6 +152,15 @@ x = "Bye world"
 x = false
 ```
 
+### Constants Initialization (type inference)
+```
+const x = 3
+const x = 3.45
+const x = "Hello world"
+const x = true
+```
+
+
 ### Arrays Initialization (type inference) - They cannot be reassigned
 ```
 let x[] = (0, 2, 3, 8, 16, 32, 64, 128, 256, 512)
