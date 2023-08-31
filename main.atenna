@@ -6,5 +6,12 @@ private void function main() {
     let entry = System.in("What is your name? ")
     System.out.println("Hello ${entry}!")
     
-    mug.hello()
+
+    # Simple enum example
+    enum Person {
+        def age int
+        def height float64
+        def fullName string
+    }
+    let gabriel = new Person(18, 1.75, "Gabriel Margarido")
 }

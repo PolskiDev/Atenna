@@ -21,6 +21,11 @@ let tokens = {
     times: "times",
     break_loop: "break",
     continue_loop: "continue",
+    enum_def: "enum",
+    enum_value: "def",
+    const_dt: "const",
+    let_dt: "let",
+    new_kw: "new",
 
     null_value: "null",
     void_value: "void",

@@ -58,16 +58,34 @@ function GenerateAST(input) {
                 }
 
             }
-            if (stack[i] == token_table.tokens.package_definition
+
+            if (stack[i] == token_table.tokens.enum_def
                 && line.includes(token_table.tokens.commentary) == false) {
                 if (stack[i+1] == undefined) {
-                    console.log("Erro de sintaxe: O nome do pacote nao foi definido - erro na linha:"+linecounter)
+                    console.log("Syntax Error: Incomplete enum definition - line error:"+linecounter)
                 } else {
                     
                     let data = {
-                        token: token_table.tokens.package_definition,
-                        name: stack[i+1].replace(/principal/g,'main'),
-                        type: 'package_definition'
+                        token: token_table.tokens.enum_def,
+                        name: stack[i+1],
+                        type: 'enum_def'
+                    }
+                    json.push(data);
+                }
+
+            }
+
+            if (stack[i] == token_table.tokens.enum_value
+                && line.includes(token_table.tokens.commentary) == false) {
+                if (stack[i+1] == undefined || stack[i+2] == undefined) {
+                    console.log("Syntax Error: Incomplete value definition on enum - line error: "+linecounter)
+                } else {
+                    
+                    let data = {
+                        token: token_table.tokens.enum_value,
+                        name: stack[i+1],
+                        typed: stack[i+2],
+                        type: 'enum_value'
                     }
                     json.push(data);
                 }
@@ -166,20 +184,71 @@ function GenerateAST(input) {
                                 value = value.replaceAll("System.in", 'os.input') 
                                 value = value.replaceAll("System.in.password", 'os.input_password') 
 
+                                if (vartype == token_table.tokens.const_dt) {
+                                    if (stack[i+1] == token_table.tokens.new_kw) {
+                                        value = line.slice(line.indexOf('new')+4)
+                                        value = value.replaceAll('(','{')
+                                        value = value.replaceAll(')','}')
 
-
-                                let data = {
-                                    token: token_table.tokens.variable_assignment,
-                                    type: 'variable_assignment',
-                                    data: {
-                                        vartype: vartype,
-                                        varname: varname,
-                                        value: value,
+                                        let data = {
+                                            token: token_table.tokens.variable_assignment,
+                                            type: 'object_assignment',
+                                            data: {
+                                                varname: varname,
+                                                value: value,
+                                            }
+                                        }
+                                        json.push(data);
+                                        var_collection.push(varname)
+                                        typedef_colection.push(vartype)
+                                    } else {
+                                        let data = {
+                                            token: token_table.tokens.variable_assignment,
+                                            type: 'constant_assignment',
+                                            data: {
+                                                vartype: vartype,
+                                                varname: varname,
+                                                value: value,
+                                            }
+                                        }
+                                        json.push(data);
+                                        var_collection.push(varname)
+                                        typedef_colection.push(vartype)
+                                    }
+                                } else {
+                                    if (vartype == token_table.tokens.let_dt) {
+                                        if (stack[i+1] == token_table.tokens.new_kw) {
+                                            value = line.slice(line.indexOf('new')+4)
+                                            value = value.replaceAll('(','{')
+                                            value = value.replaceAll(')','}')
+                                            
+                                            let data = {
+                                                token: token_table.tokens.variable_assignment,
+                                                type: 'mutable_object_assignment',
+                                                data: {
+                                                    varname: varname,
+                                                    value: value,
+                                                }
+                                            }
+                                            json.push(data);
+                                            var_collection.push(varname)
+                                            typedef_colection.push(vartype)
+                                        } else {
+                                            let data = {
+                                                token: token_table.tokens.variable_assignment,
+                                                type: 'variable_assignment',
+                                                data: {
+                                                    vartype: vartype,
+                                                    varname: varname,
+                                                    value: value,
+                                                }
+                                            }
+                                        json.push(data);
+                                        var_collection.push(varname)
+                                        typedef_colection.push(vartype)
+                                    }
                                     }
                                 }
-                                json.push(data);
-                                var_collection.push(varname)
-                                typedef_colection.push(vartype)
                             }
                         }
                     }

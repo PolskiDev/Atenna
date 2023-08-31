@@ -1,5 +1,5 @@
 # Atenna Programming Language
-### Developed by Gabriel Margarido - Version 0.2.4
+### Developed by Gabriel Margarido - Version 0.2.5
 A compiled, multiplatform, statically, structured and strongly-typed programming language with a Java-like syntax and a bit of Javascript semantics. That ables you to code instantly fast programs and execute them on LLVM (low-level virtual machine).
 
 <img src="assets/atenna-full.png" width="350px"><br>
@@ -339,6 +339,32 @@ private void function main() {
         System.out.println("Argument: ${args[i]}")
     }
 }
+```
+
+## Enums/Classes - `enum`
+### Enums - Mutable
+```
+enum Person {
+    def age int
+    def height float64
+    def name string
+    def surname string
+}
+
+let gabriel = new Person(18, "Gabriel", "Margarido")
+```
+
+
+### Enums - Immutable
+```
+enum Person {
+    def age int
+    def height float64
+    def name string
+    def surname string
+}
+
+const gabriel = new Person(18, "Gabriel", "Margarido")
 ```
 
 # String Handling

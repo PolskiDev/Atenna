@@ -15,9 +15,16 @@ function CodeGen(input, output, mode='normal') {
             fs.writeFileSync(output, 'module '+module_name+'\n')
         }
 
-        else if (codegen[i].type == 'package_definition') {
-            fs.appendFileSync(output, '-- PACOTE: '+codegen[i].name+'\n')
+        else if (codegen[i].type == 'enum_def') {
+            fs.appendFileSync(output, 'struct '+codegen[i].name+' ')
         }
+        
+        else if (codegen[i].type == 'enum_value') {
+            codegen[i].typed = codegen[i].typed.replaceAll('float32', 'f32')
+            codegen[i].typed = codegen[i].typed.replaceAll('float64', 'f64')
+            fs.appendFileSync(output, codegen[i].name+' '+codegen[i].typed+'\n')
+        }
+
         else if (codegen[i].type == 'open_block') {
             fs.appendFileSync(output, '{\n')
         }
@@ -28,13 +35,29 @@ function CodeGen(input, output, mode='normal') {
 
         else if (codegen[i].type == 'variable_assignment') {
             if (codegen[i].data.value == tokens.null_value) {
-                fs.appendFileSync(output,'// mut '+codegen[i].data.varname+' := '+codegen[i].data.value+'\n')
+                //fs.appendFileSync(output,'// mut '+codegen[i].data.varname+' := '+codegen[i].data.value+'\n')
             } else {
                 fs.appendFileSync(output,'mut '+codegen[i].data.varname+' := '+codegen[i].data.value+'\n')
                 //if (codegen[i].data.error_name != undefined) {
                     //fs.appendFileSync(output, `if ${codegen[i].data.error_name} != nil { log.Fatal(${codegen[i].data.error_name}) }\n`)
                 //}
             }
+        }
+        else if (codegen[i].type == 'constant_assignment') {
+            if (codegen[i].data.value == tokens.null_value) {
+                //fs.appendFileSync(output,'// mut '+codegen[i].data.varname+' := '+codegen[i].data.value+'\n')
+            } else {
+                fs.appendFileSync(output,codegen[i].data.varname+' := '+codegen[i].data.value+'\n')
+                //if (codegen[i].data.error_name != undefined) {
+                    //fs.appendFileSync(output, `if ${codegen[i].data.error_name} != nil { log.Fatal(${codegen[i].data.error_name}) }\n`)
+                //}
+            }
+        }
+        else if (codegen[i].type == 'object_assignment') {
+            fs.appendFileSync(output,codegen[i].data.varname+' := '+codegen[i].data.value+'\n')
+        }
+        else if (codegen[i].type == 'mutable_object_assignment') {
+            fs.appendFileSync(output,'mut '+codegen[i].data.varname+' := '+codegen[i].data.value+'\n')
         }
         else if (codegen[i].type == 'variable_reassignment') {
             fs.appendFileSync(output, codegen[i].data.varname+' = '+codegen[i].data.value+'\n')
