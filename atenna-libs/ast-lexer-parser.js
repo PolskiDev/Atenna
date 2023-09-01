@@ -26,7 +26,7 @@ let linecounter = 0     // Used for error handling!
 
 
 function GenerateAST(input) {
-    let regex = /[A-Za-z0-9_$++::\{\}.,@*#?>\-:=]+|"[^"]+"|'[^']+'|\([^)]*\)|\[[^\]]*\]|\/[^)/]*\/|(:)|(=)/g
+    let regex = /[A-Za-z0-9_$++::\{\}!.,@*#?>\-:=]+|"[^"]+"|'[^']+'|\([^)]*\)|\[[^\]]*\]|\/[^)/]*\/|(:)|(=)/g
     let source = fs.readFileSync(input,'utf8')
     let json = []
 
@@ -527,7 +527,7 @@ function GenerateAST(input) {
             }
             else if (stack[i] == token_table.tokens.loop_while
             && line.includes(token_table.tokens.commentary) == false) {
-                let expression = line.slice(line.indexOf(token_table.tokens.loop_while)+token_table.tokens.loop_while.length, line.lastIndexOf(token_table.tokens.open_block)).slice(2,-2)
+                let expression = line.slice(line.indexOf(token_table.tokens.loop_while)+token_table.tokens.loop_while.length, line.lastIndexOf(token_table.tokens.open_block)).slice(1,-2)
                 let opening_block = stack[i+2]
 
                 if (opening_block != token_table.tokens.open_block) {

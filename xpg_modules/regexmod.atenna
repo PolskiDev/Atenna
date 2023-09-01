@@ -1,0 +1,24 @@
+package regexmod
+import regex
+
+# import regexmod
+# regexmod.regex_parse("How was the day?", "(\s)+", false)
+
+
+public !string function regex_parse(text string, rule string, show_begin_and_end_index bool) {
+    const regexp = regex.regex_opt(rule)!
+    const begin,end = regexp.match_string(text)
+
+    if (show_begin_and_end_index == true) {
+        System.out.println("${begin}:${end}")
+    }
+    let gi = 0
+    let ret = "0"
+    while(gi < regexp.groups.len) {
+        if (regexp.groups[gi] >= 0) {
+            ret = "${text[regexp.groups[gi]..regexp.groups[gi+1]]}"
+        }
+        gi = gi + 2
+    }
+    return ret
+}

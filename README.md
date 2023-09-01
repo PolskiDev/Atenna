@@ -12,6 +12,21 @@ Atenna source-files extensions are: `*.atenna` or `*.atn`
 Download for Windows: [Git Bash](https://git-scm.com/download/win)  
 _It emulates a UNIX-like environment_
 
+## XPG Remote Package Manager
+**Install modules using Git Protocol:**
+```
+xpg install-module https://github.com/<username>/<module>.git
+```
+
+**Uninstall local modules:**
+```
+xpg uninstall-module <module>
+```
+
+**XPG Manpage/Help:**
+```
+xpg --help
+```
 
 ## Install Atenna on Microsoft VSCode
 <img src="assets/vscode.png" width="130px">
@@ -358,7 +373,7 @@ package main
 import os
 
 private void function main() {
-    let args = os.args
+    let args = os.args.clone()
 
     for i in (args) {
         System.out.println("Argument: ${args[i]}")

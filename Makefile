@@ -11,11 +11,15 @@ install-atenna:
 	sudo cp -Rfv atennac.js /usr/local/bin/atennac
 	sudo cp -Rfv atenna-libs /usr/local/bin/atenna-libs
 
+	sudo atennac xpg.atenna -o xpg
+	sudo cp -Rfv xpg /usr/local/bin/xpg
+
 uninstall-atenna:
 	sudo rm -Rfv /usr/local/bin/atennac
 	sudo rm -Rfv /usr/local/bin/atenna-libs
 	rm -Rfv ~/.vscode/extensions/atenna-vscode
 	sudo rm -Rfv /opt/atenna-cache
+	sudo rm -Rfv /usr/local/bin/xpg
 
 reset-cache:
 	sudo rm -Rfv /opt/atenna-cache ~/$(VSCODE_EXT)/extensions/extensions.json

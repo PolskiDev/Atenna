@@ -1,0 +1,33 @@
+# XPG - Atenna Package Manager
+# sudo xpg --help
+
+package main
+import os
+
+private void function manpage() {
+    System.out.println("\n\n\n                            XPG PACKAGE MANAGER\n")
+    System.out.println("                               Version 0.2.7\n")
+    System.out.println("----------------------------------------------------------------------------\n")
+    System.out.println("Install Module:     sudo xpg install-module https://github.com/<username>/<module>.git")
+    System.out.println("Uninstall Module:   sudo xpg uninstall-module <module>")
+    System.out.println("\n----------------------------------------------------------------------------\n\n")
+}
+private void function main() {
+    let args = os.args.clone()
+
+    # for i in (args) {
+    #    System.out.println(i)
+    # }
+
+
+    if (args[1] == "install-module") {
+        const git = os.execute("git clone ${args[2]}")
+        System.out.println(git)
+
+    } elseif (args[1] == "uninstall-module") {
+        os.execute("rm -Rf "+args[2])
+
+    } else {
+        manpage()
+    }
+}
