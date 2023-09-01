@@ -22,7 +22,7 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.atenna",
-				"match": "\\b(if|elseif|else|for|while|in|return|import|println|print|password)\\b"
+				"match": "\\b(if|elseif|else|for|while|in|return|import|println|print|password|break|continue)\\b"
 			}]
 		},
 		"comments": {
