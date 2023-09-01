@@ -1,5 +1,5 @@
 # Atenna Programming Language
-### Developed by Gabriel Margarido - Version 0.2.6
+### Developed by Gabriel Margarido - Version 0.2.8
 A compiled, multiplatform, statically, structured and strongly-typed programming language with a Java-like syntax and a bit of Javascript semantics. That ables you to code instantly fast programs and execute them on LLVM (low-level virtual machine).
 
 <img src="assets/atenna-full.png" width="350px"><br>
@@ -976,4 +976,443 @@ System.out.println(out_hash)
 ```
 const out_hash = md5.hexhash("Hello world")
 System.out.println(out_hash)
+```
+
+
+## Mathematics - `import math`
+### [>> See Advanced Mathematics documentation](MATH.md)
+
+### It converts from radians to degrees.
+```
+package main
+import math
+
+private void function main() {
+    const a = 78.90302
+    const x = math.degrees(a)
+    
+    System.out.println("Result: ${x}")
+}  
+
+```
+
+### It converts from degrees to radians.
+```
+package main
+import math
+
+private void function main() {
+    const a = 78.90302
+    const x = math.radians(a)
+    
+    System.out.println("Result: ${x}")
+}  
+
+```
+
+
+### It returns the nearest integer, rounding half away from zero.
+*special cases are: round(±0) = ±0 round(±inf) = ±inf round(nan) = nan*
+
+```
+package main
+import math
+
+private void function main() {
+    const a = 78.90302
+    const x = math.round(a)
+    
+    System.out.println("Result: ${x}")
+}  
+
+```
+
+### It returns the rounded float, with sig_digits of precision.
+*special cases are: round(±0) = ±0 round(±inf) = ±inf round(nan) = nan*
+
+```
+package main
+import math
+
+private void function main() {
+    const a = 78.90302
+    const max_dig = 3
+    const x = math.round(a, max_dig)
+    
+    System.out.println("Result: ${x}")
+}  
+
+```
+
+### It returns the rounded float, with sig_digits of precision.
+*special cases are: round_to_even(±0) = ±0 round_to_even(±inf) = ±inf round_to_even(nan) = nan*
+
+```
+package main
+import math
+
+private void function main() {
+    const a = 78.90302
+    const x = math.round_to_even(a)
+    
+    System.out.println("Result: ${x}")
+}  
+
+```
+
+### It calculates sine in radians (float32)
+*special cases are: tanh(±0) = ±0 tanh(±inf) = ±1 tanh(nan) = nan*
+
+```
+package main
+import math
+
+private void function main() {
+    const a = 78.90302
+    const x = math.sinf(a)
+    
+    System.out.println("Result: ${x}")
+}  
+
+```
+
+### It calculates hyperbolic sine.
+
+```
+package main
+import math
+
+private void function main() {
+    const a = 78.90302
+    const x = math.sinh(a)
+    
+    System.out.println("Result: ${x}")
+}  
+
+```
+
+### It calculates square root of given float number.
+
+```
+package main
+import math
+
+private void function main() {
+    const a = 78.90302
+    const x = math.sqrt(a)
+    
+    System.out.println("Result: ${x}")
+}  
+
+```
+
+### It calculates square-root of the provided value. (float32)
+
+```
+package main
+import math
+
+private void function main() {
+    const a = 78.90302
+    const x = math.sqrtf(a)
+    
+    System.out.println("Result: ${x}")
+}  
+
+```
+
+
+### It calculates the integer square-root of the provided value. (i64)
+
+```
+package main
+import math
+
+private void function main() {
+    const a = 40
+    const x = math.sqrti(a)
+    
+    System.out.println("Result: ${x}")
+}  
+
+```
+
+### It calculates tangent of a number
+
+```
+package main
+import math
+
+private void function main() {
+    const a = 40.506
+    const x = math.tan(a)
+    
+    System.out.println("Result: ${x}")
+}  
+
+```
+
+### It calculates tangent (float32)
+
+```
+package main
+import math
+
+private void function main() {
+    const a = 40.506
+    const x = math.tanf(a)
+    
+    System.out.println("Result: ${x}")
+}  
+
+```
+
+### It calculates the hyperbolic tangent of x.
+
+```
+package main
+import math
+
+private void function main() {
+    const a = 40.506
+    const x = math.tanh(a)
+    
+    System.out.println("Result: ${x}")
+}  
+
+```
+
+
+
+### It calculates the factorial of the provided value.
+
+```
+package main
+import math
+
+private void function main() {
+    const n = 90
+    const x = math.factorial(n)
+    
+    System.out.println("${x}")
+}  
+
+```
+
+
+### It returns 1 for n <= 0 and -1 if the result is too large for a 64 bit integer
+
+```
+package main
+import math
+
+private void function main() {
+    const n = 90
+    const x = math.factoriali(n)
+    
+    System.out.println("${x}")
+}  
+
+```
+
+### It returns the greatest integer value less than or equal to x.
+*special cases are: floor(±0) = ±0 floor(±inf) = ±inf floor(nan) = nan*
+
+```
+package main
+import math
+
+private void function main() {
+    const n = 90.55606
+    const x = math.floor(n)
+    
+    System.out.println("${x}")
+}  
+
+```
+
+
+### It returns the floating-point remainder of number / denom (rounded towards zero)
+
+```
+package main
+import math
+
+private void function main() {
+    const a = 90.55606
+    const b = 24.567
+    const x = math.fmod(a, b)
+    
+    System.out.println("${x}")
+}  
+
+```
+
+### It calculates greatest common (positive) divisor (or zero if a and b are both zero).
+
+```
+package main
+import math
+
+private void function main() {
+    const a = 78
+    const b = 106
+    const x = math.gcd(a, b)
+    
+    System.out.println("${x}")
+}  
+
+```
+
+
+### It returns high part of the word of y.
+```
+package main
+import math
+
+private void function main() {
+    const y = 556.7234
+    const x = math.get_high_word(y)
+    
+    System.out.println("${x}")
+}  
+
+```
+
+
+### It returns the hypotenuse of the triangle give two sides. (Pythagora's theorem)
+
+```
+package main
+import math
+
+private void function main() {
+    const y = 50
+    const z = 70
+    const x = math.hypot(y, z)
+    
+    System.out.println("${x}")
+}  
+
+```
+
+
+### It returns the logarithm of y
+*Method : 1. Argument Reduction: find k and f such that x = 2^k * (1+f), where sqrt(2)/2 < 1+f < sqrt(2) .
+
+Approximation of log(1+f).
+Let s = f/(2+f) ; based on log(1+f) = log(1+s) - log(1-s) = 2s + 2/3 s3 + 2/5 s5 + ....., = 2s + sR We use a special Remez algorithm on [0,0.1716] to generate a polynomial of degree 14 to approximate R The maximum error of this polynomial approximation is bounded by 2**-58.45. In other words, 2 4 6 8 10 12 14 R(z) ~ Lg1s +Lg2s +Lg3s +Lg4s +Lg5s +Lg6s +Lg7s (the values of Lg1 to Lg7 are listed in the program) and | 2 14 | -58.45 | Lg1s +...+Lg7s - R(z) | <= 2 | | Note that 2s = f - sf = f - hfsq + shfsq, where hfsq = ff/2.
+In order to guarantee error in log below 1ulp, we compute log by log(1+f) = f - s(f - R) (if f is not too large) log(1+f) = f - (hfsq - s*(hfsq+R)). (better accuracy)
+
+Finally, log(x) = kln2 + log(1+f).
+= kln2_hi+(f-(hfsq-(s*(hfsq+R)+kln2_lo))) Here ln2 is split into two floating point number: ln2_hi + ln2_lo, where nln2_hi is always exact for |n| < 2000.
+Special cases: log(x) is NaN with signal if x < 0 (including -inf) ; log(+inf) is +inf; log(0) is -inf with signal; log(NaN) is that NaN with no signal.
+
+Accuracy: according to an error analysis, the error is always less than 1 ulp (unit in the last place).*
+```
+package main
+import math
+
+private void function main() {
+    const y = 50.67
+    const x = math.log(y)
+    
+    System.out.println("${x}")
+}  
+
+```
+
+
+### It returns the decimal logarithm of x.
+*The special cases are the same as for log.*
+
+```
+package main
+import math
+
+private void function main() {
+    const y = 50.5685
+    const x = math.log10(y)
+    
+    System.out.println("${x}")
+}  
+
+```
+
+### It returns log(1+y)
+
+```
+package main
+import math
+
+private void function main() {
+    const y = 50.5685
+    const x = math.log1p(y)
+    
+    System.out.println("${x}")
+}  
+
+```
+
+### It returns the binary logarithm of x.
+*The special cases are the same as for log.*
+
+```
+package main
+import math
+
+private void function main() {
+    const y = 50.5685
+    const x = math.log2(y)
+    
+    System.out.println("${x}")
+}  
+
+```
+
+### It calculates the log-factorial of the provided value.
+
+```
+package main
+import math
+
+private void function main() {
+    const y = 50.5685
+    const x = math.log_factorial(y)
+    
+    System.out.println("${x}")
+}  
+
+```
+
+### It returns the natural logarithm and sign (-1 or +1) of Gamma(x).
+*special ifs are: log_gamma(+inf) = +inf log_gamma(0) = +inf log_gamma(-integer) = +inf log_gamma(-inf) = -inf log_gamma(nan) = nan*
+
+```
+package main
+import math
+
+private void function main() {
+    const y = 50.5685
+    const x = math.log_gamma(y)
+    
+    System.out.println("${x}")
+}  
+
+```
+
+### It returns log base z of y
+
+```
+package main
+import math
+
+private void function main() {
+    const z = 10
+    const y = 50.5685
+    const x = math.log_n(z, y)
+    
+    System.out.println("${x}")
+}  
+
 ```
