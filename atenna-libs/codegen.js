@@ -8,7 +8,7 @@ const { tokens } = require('./token_table')
 
 
 function CodeGen(input, output, mode='normal') {
-    let codegen = lexer.GenerateAST(input)
+    let codegen = input
     for (var i = 0; i < codegen?.length; i++) {
         if (codegen[i].type == 'initialize_program') {
             let module_name = codegen[i].name
@@ -20,6 +20,9 @@ function CodeGen(input, output, mode='normal') {
         }
         
         else if (codegen[i].type == 'enum_value') {
+            codegen[i].typed = codegen[i].typed.replaceAll('float32', 'f32')
+            codegen[i].typed = codegen[i].typed.replaceAll('float64', 'f64')
+
             codegen[i].typed = codegen[i].typed.replaceAll('float32[]', '[]f32')
             codegen[i].typed = codegen[i].typed.replaceAll('float64[]', '[]f64')
 
@@ -53,21 +56,29 @@ function CodeGen(input, output, mode='normal') {
         }
 
 
-        else if (codegen[i].type == 'variable_assignment') {
+        else if (codegen[i].type == 'variable_assignment') { 
+            let value = codegen[i].data.value
+            value = value.replaceAll("System.in", 'os.input') 
+            value = value.replaceAll("System.in.password", 'os.input_password')
+
             if (codegen[i].data.value == tokens.null_value) {
                 //fs.appendFileSync(output,'// mut '+codegen[i].data.varname+' := '+codegen[i].data.value+'\n')
             } else {
-                fs.appendFileSync(output,'mut '+codegen[i].data.varname+' := '+codegen[i].data.value+'\n')
+                fs.appendFileSync(output,'mut '+codegen[i].data.varname+' := '+value+'\n')
                 //if (codegen[i].data.error_name != undefined) {
                     //fs.appendFileSync(output, `if ${codegen[i].data.error_name} != nil { log.Fatal(${codegen[i].data.error_name}) }\n`)
                 //}
             }
         }
         else if (codegen[i].type == 'constant_assignment') {
+            let value = codegen[i].data.value
+            value = value.replaceAll("System.in", 'os.input') 
+            value = value.replaceAll("System.in.password", 'os.input_password')
+
             if (codegen[i].data.value == tokens.null_value) {
                 //fs.appendFileSync(output,'// mut '+codegen[i].data.varname+' := '+codegen[i].data.value+'\n')
             } else {
-                fs.appendFileSync(output,codegen[i].data.varname+' := '+codegen[i].data.value+'\n')
+                fs.appendFileSync(output,codegen[i].data.varname+' := '+value+'\n')
                 //if (codegen[i].data.error_name != undefined) {
                     //fs.appendFileSync(output, `if ${codegen[i].data.error_name} != nil { log.Fatal(${codegen[i].data.error_name}) }\n`)
                 //}
@@ -105,6 +116,8 @@ function CodeGen(input, output, mode='normal') {
             if (codegen[i].data.modifier == tokens.public_modifier) { codegen[i].data.modifier = 'pub'+' ' }
             if (codegen[i].data.modifier == tokens.private_modifier) { codegen[i].data.modifier = '' }
 
+            codegen[i].data.args = codegen[i].data.args.replaceAll(":", ' ')
+
             // RETURN TYPE
             if (codegen[i].data.state_type == tokens.void_value) { codegen[i].data.state_type = '' }
             if (codegen[i].data.state_type == tokens.float32_value) { codegen[i].data.state_type = 'f32' }
@@ -118,8 +131,12 @@ function CodeGen(input, output, mode='normal') {
             fs.appendFileSync(output, codegen[i].data.modifier+'fn '+codegen[i].data.funcname+codegen[i].data.args+' '+codegen[i].data.state_type+'\n')
         }
         else if (codegen[i].type == 'function_call') {
+            let funcname = codegen[i].data.funcname
+            funcname = funcname.replaceAll('System.out.println','println')
+            funcname = funcname.replaceAll('System.out.print','print')
+            
             //codegen[i].data.args = codegen[i].data.args.replace(/let /g,'')
-            fs.appendFileSync(output, codegen[i].data.funcname+codegen[i].data.args+'\n')
+            fs.appendFileSync(output, funcname+codegen[i].data.args+'\n')
         }
         else if (codegen[i].type == 'return_value') {
             fs.appendFileSync(output, codegen[i].data.value+'\n')

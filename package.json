@@ -1,6 +1,6 @@
 {
   "name": "atennac",
-  "version": "0.2.8",
+  "version": "0.3.0",
   "description": "Atenna Compiler",
   "main": "atennac.js",
   "dependencies": {

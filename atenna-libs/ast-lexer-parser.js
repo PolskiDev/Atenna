@@ -19,13 +19,13 @@ const token_table = require('./token_table')
 let var_collection = []
 let typedef_colection = []
 let func_collection = [ // Put all custom functions here, first!
-    'escreval','escreva','entrada','leia'
+
 ]
 let import_collection = []
 let linecounter = 0     // Used for error handling!
 
 
-function GenerateAST(input) {
+function GenerateAST(input, isJavascriptAssembly) {
     let regex = /[A-Za-z0-9_$++::\{\}!.,@*#?>\-:=]+|"[^"]+"|'[^']+'|\([^)]*\)|\[[^\]]*\]|\/[^)/]*\/|(:)|(=)/g
     let source = fs.readFileSync(input,'utf8')
     let json = []
@@ -181,9 +181,6 @@ function GenerateAST(input) {
         
                             } else {
                                 /** Variable Declaration */
-                                value = value.replaceAll("System.in", 'os.input') 
-                                value = value.replaceAll("System.in.password", 'os.input_password') 
-
                                 if (vartype == token_table.tokens.const_dt) {
                                     if (stack[i+1] == token_table.tokens.new_kw) {
                                         value = line.slice(line.indexOf('new')+4)
@@ -218,10 +215,22 @@ function GenerateAST(input) {
                                 } else {
                                     if (vartype == token_table.tokens.let_dt) {
                                         if (stack[i+1] == token_table.tokens.new_kw) {
-                                            value = line.slice(line.indexOf('new')+4)
-                                            value = value.replaceAll('(','{')
-                                            value = value.replaceAll(')','}')
-                                            
+    
+                                            if (isJavascriptAssembly == true) {
+                                                value = line.slice(line.indexOf('new')+4)
+                                                value = value.replaceAll('(','{')
+                                                value = value.replaceAll(')','}')
+
+                                                let interfaceName = value.match(/(?=[a-zA-Z])(.*)(?=\{)/g)
+                                                varname = varname+': '+interfaceName
+
+                                                value = value.replaceAll(interfaceName, '')
+    
+                                            } else {
+                                                value = line.slice(line.indexOf('new')+4)
+                                                value = value.replaceAll('(','{')
+                                                value = value.replaceAll(')','}')    
+                                            }
                                             let data = {
                                                 token: token_table.tokens.variable_assignment,
                                                 type: 'mutable_object_assignment',
@@ -453,10 +462,6 @@ function GenerateAST(input) {
                  */
                 let args = line.trim().slice(stack[i-1].length)
                 //if (func_collection.includes(funcname)) {
-
-                    funcname = funcname.replaceAll("System.out.println", 'println')
-                    funcname = funcname.replaceAll("System.out.print", 'print')
-
                     let data = {
                         token: '<function_call>',
                         type: 'function_call',

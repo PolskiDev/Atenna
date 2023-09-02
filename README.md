@@ -1,11 +1,20 @@
 # Atenna Programming Language
-### Developed by Gabriel Margarido - Version 0.2.9
-A compiled, multiplatform, statically, structured and strongly-typed programming language with a Java-like syntax and a bit of Javascript semantics. That ables you to code instantly fast programs and execute them on LLVM (low-level virtual machine).
+### Developed by Gabriel Margarido - Version 0.3
+A compiled, multiplatform, statically, structured and strongly-typed programming language with a Java-like syntax and a bit of Javascript semantics. That ables you to code instantly fast programs and execute them on LLVM (low-level virtual machine) or inside the web browser.
+
+
+Atenna.js only supports basic libraries, it means that you can use all Javascript functions or modules inside your code. However, Standard Atenna module libraries aren't supported.  
+
+It's main focus is on web development using Atenna Programming Language.
+
+[See Atenna.js - Run Atenna on the Web](JS.md)
 
 <img src="assets/atenna.png" width="150px"><br>
 
 Atenna source-files extensions are: `*.atenna` or `*.atn` 
 
+
+# Continue on Standard Atenna
 ## Install Git Bash (Windows)
 <img src="assets/Bash_Logo_Colored.svg.png" width="130px">
 

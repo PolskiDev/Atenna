@@ -30,7 +30,27 @@ let tokens = {
     null_value: "null",
     void_value: "void",
     float32_value: "float32",
-    float64_value: "float64"
+    float64_value: "float64",
+
+    integer32_value: "int",
+    integer8_value: "i8",
+    integer16_value: "i16",
+    integer64_value: "i64",
+    integer128_value: "i128",
+
+    unsigned_integer32_value: "u32",
+    unsigned_integer8_value: "u8",
+    unsigned_integer16_value: "u16",
+    unsigned_integer64_value: "u64",
+    unsigned_integer128_value: "u128",
+
+    integer_size_value: "isize",
+    unsigned_integer_size_value: "usize",
+
+    string_value: "string",
+    rune_value: "rune",
+    bool_value: "bool",
+
 }
 
 

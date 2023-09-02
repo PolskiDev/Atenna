@@ -79,7 +79,7 @@
         },
         "storage": {
             "name": "storage.modifier.atenna",
-            "match": "\\b(package|let|const|def|enum|new|public|private|function|int|i8|i16|i64|i128|u8|u16|u32|u64|u128|isize|usize|float32|float64|f32|f64|bool|void|string|rune|true|false)\\b"
+            "match": "\\b(package|let|const|def|enum|new|public|private|function|int|i8|i16|i64|i128|u8|u16|u32|u64|u128|isize|usize|float32|float64|f32|f64|bool|void|string|rune|true|false|NaN|window)\\b"
         }
 	},
 	"scopeName": "source.atenna"

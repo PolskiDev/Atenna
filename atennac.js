@@ -4,6 +4,8 @@ const args = process.argv.slice(2)
 const fs = require('fs')
 const ast_lexer_parser = require('./atenna-libs/ast-lexer-parser')
 const codegen = require('./atenna-libs/codegen')
+
+const codegen_javascript = require('./atenna-libs/javascript/codegen-js')
 const { execSync } = require('child_process')
 
 
@@ -24,17 +26,32 @@ function CopyFile(init, dest) {
 // CLI ARGS LOGIC
 if (args[1] == '-ast') {
     // SHOW ABSTRACT SYNTAX TREE
-    console.log(ast_lexer_parser.GenerateAST(args[0]))
+    console.log(ast_lexer_parser.GenerateAST(args[0], false))
+
+} else if (args[1] == '-ast-web-js') {
+    console.log(ast_lexer_parser.GenerateAST(args[0], true))
+
 } else if (args[1] == '-lib-module') {
     fs.mkdirSync(args[2], { recursive: true })
-    codegen.CodeGen(args[0], args[2]+'/'+args[2]+'.v', 'normal')
+    let lexr = ast_lexer_parser.GenerateAST(args[0], false)
+    codegen.CodeGen(lexr, args[2]+'/'+args[2]+'.v', 'normal')
+
+} else if (args[1] == '-web-js') {
+    console.log(args[0])
+    let lexr = ast_lexer_parser.GenerateAST(args[0], true)
+    codegen_javascript.CodeGen(lexr, args[2]+'.ts', 'normal')
+    execSync('sudo npm install -g typescript && sudo npm install -g @types/node && tsc -t ES2016 --lib "ES2016","DOM" '+args[2]+'.ts')
+
+    // REMOVE OBJECT CODE
+    fs.rmSync(args[2]+'.ts')
 
 } else if (args[1] == '-o') {
     // GENERATE .atenna FOLDER
     //fs.mkdirSync(HOME_ATENNA_CACHE.slice(0,-1), {recursive: true})
 
     // GENERATE OBJECT CODE [.v]
-    codegen.CodeGen(args[0], args[2]+'.v', 'normal')
+    let lexr = ast_lexer_parser.GenerateAST(args[0], false)
+    codegen.CodeGen(lexr, args[2]+'.v', 'normal')
 
     // COMPILE OBJECT CODE [.v] - > [.exe]
 
@@ -153,10 +170,14 @@ if (args[1] == '-ast') {
     
 
     //console.log("--------------------------------------------------------------------------------\n\n")
-    console.log("Options:")
+    console.log("Options:\n")
     console.log("<file>.atenna   -o    <file>                   Output is a binary\n")
     console.log("<file>.atenna   -lib-module    <file>          Output is a library module\n")
     console.log("<file>.atenna   -ast                           Show generated AST\n")
+
+    console.log("\n\n<file>.atenna   -web-js    <file>              Output is a Javascript file\n")
+    console.log("<file>.atenna   -ast-web-js                    Show generated AST for Javascript\n")
+
     console.log("--------------------------------------------------------------------------------\n\n")
 }
 

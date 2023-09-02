@@ -1,0 +1,18 @@
+package main
+import os
+
+# Simple enum example
+enum Person {
+    def age int
+    def height float32
+    def full_name string
+}
+
+private void function main() {
+    System.out.println("Hello world")
+    let entry = System.in("What is your name? ")
+    System.out.println("Hello ${entry}!")
+    
+    let gabriel = new Person(18, 1.75, "Gabriel Margarido")
+    const x = 13
+}
