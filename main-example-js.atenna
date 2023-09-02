@@ -7,6 +7,9 @@ enum Person {
     def full_name string
 }
 
+private void function clk() {
+    System.out.println("You clicked me!")
+}
 private void function main() {
     System.out.println("Hello world")
     let entry = window.document.getElementById("txt")
