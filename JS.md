@@ -1,5 +1,5 @@
 # Atenna Programming Language - Atenna.js
-### Developed by Gabriel Margarido - Version 0.3
+### Developed by Gabriel Margarido - Version 0.3.1
 
 <img src="assets/68747470733a2f2f7261772e6769746875622e636f6d2f6a73636f6e662f6c6f676f2e6a732f6d61737465722f6a732e65752e706e67.png" width="150px"><br>
 
@@ -348,3 +348,34 @@ element.innerText = "It goes on..."
 element = "Changing something..."
 ```
 
+## Event Functions - `@function`
+```
+private void function clicked() {
+    System.out.println("You clicked me!")
+}
+
+@function clicked = window.document.getElementById("clk").onclick
+```
+
+### Syntax Structure
+### Available events for event functions: `EVENT`
+- When left clicked on element: `onclick`  
+- When right clicked on element: `oncontextmenu`  
+- Whne double clicked on element: `ondblclick`  
+- When mouse pressed over an element: `ondblclick`  
+- When pointer is moved onto an element: `onmouseenter`  
+- When pointer is moved out an element: `onmouseleave`  
+- When pointer is moving over an element: `onmousemove`  
+- When mouse pointer moves out of an element: `onmouseout`  
+- When mouse pointer is moved over an element: `onmouseover`  
+- When mouse button is released over an element: `onmouseup`  
+
+```
+private void function FUNCTION_NAME() {
+
+                ...
+
+}
+
+@function FUNCTION_NAME = window.document.getElementById(ELEMENT_ID).EVENT
+```

@@ -20,4 +20,6 @@ private void function main() {
     for i in (0..d) {
 
     }
+
+    @function clk = window.document.getElementById("clk").onclick
 }

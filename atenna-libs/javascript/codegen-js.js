@@ -12,12 +12,7 @@ function CodeGen(input, output, mode='normal') {
     for (var i = 0; i < codegen?.length; i++) {
         if (codegen[i].type == 'initialize_program') {
             let module_name = codegen[i].name
-
-            if (input == 'main.atenna' || input == 'main.atn') {
-                fs.writeFileSync(output, module_name+'();\n')
-            } else {
-                fs.writeFileSync(output, '')
-            }
+            fs.writeFileSync(output, module_name+'();\n')
             
         }
 
@@ -57,6 +52,17 @@ function CodeGen(input, output, mode='normal') {
         }
         else if (codegen[i].type == 'end_block') {
             fs.appendFileSync(output, '}\n')
+        }
+
+
+        /**
+         * -- events -> (event-function_assignment) --
+         * @onclick
+         * @ondblclick
+         * @onmousedown
+        */
+        else if (codegen[i].type == 'event-function_assignment') {
+            fs.appendFileSync(output,codegen[i].data.event+' = function() { '+codegen[i].data.varname+'() }\n')
         }
 
 

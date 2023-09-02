@@ -11,6 +11,7 @@ let tokens = {
     array_symbol: "[]",
     package_importing: "import",
     function_definition: "function",
+    event_function_definition: "@function",
     return_value: "return",
     conditional_if: "if",
     conditional_elsif: "elseif",

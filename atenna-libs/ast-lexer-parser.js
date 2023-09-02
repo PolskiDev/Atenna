@@ -213,7 +213,7 @@ function GenerateAST(input, isJavascriptAssembly) {
                                         typedef_colection.push(vartype)
                                     }
                                 } else {
-                                    if (vartype == token_table.tokens.let_dt) {
+                                    if (vartype == token_table.tokens.let_dt || vartype == token_table.tokens.event_function_definition) {
                                         if (stack[i+1] == token_table.tokens.new_kw) {
     
                                             if (isJavascriptAssembly == true) {
@@ -243,19 +243,51 @@ function GenerateAST(input, isJavascriptAssembly) {
                                             var_collection.push(varname)
                                             typedef_colection.push(vartype)
                                         } else {
-                                            let data = {
-                                                token: token_table.tokens.variable_assignment,
-                                                type: 'variable_assignment',
-                                                data: {
-                                                    vartype: vartype,
-                                                    varname: varname,
-                                                    value: value,
+                                            if (isJavascriptAssembly) {
+                                                //let isEventFunction = stack[i-3]
+                                                if (vartype == token_table.tokens.event_function_definition) {
+                                                    let data = {
+                                                        token: token_table.tokens.variable_assignment,
+                                                        type: 'event-function_assignment',
+                                                        data: {
+                                                            vartype: vartype,
+                                                            varname: varname,
+                                                            event: value
+                                                        }
+                                                    }
+                                                    json.push(data);
+                                                    var_collection.push(varname)
+                                                    typedef_colection.push(vartype)
+                                                } else {
+                                                    let data = {
+                                                        token: token_table.tokens.variable_assignment,
+                                                        type: 'variable_assignment',
+                                                        data: {
+                                                            vartype: vartype,
+                                                            varname: varname,
+                                                            value: value,
+                                                        }
+                                                    }
+                                                    json.push(data);
+                                                    var_collection.push(varname)
+                                                    typedef_colection.push(vartype)
                                                 }
+                                            } else {
+                                                let data = {
+                                                    token: token_table.tokens.variable_assignment,
+                                                    type: 'variable_assignment',
+                                                    data: {
+                                                        vartype: vartype,
+                                                        varname: varname,
+                                                        value: value,
+                                                    }
+                                                }
+                                                json.push(data);
+                                                var_collection.push(varname)
+                                                typedef_colection.push(vartype)
                                             }
-                                        json.push(data);
-                                        var_collection.push(varname)
-                                        typedef_colection.push(vartype)
-                                    }
+
+                                        }
                                     }
                                 }
                             }

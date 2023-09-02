@@ -2,7 +2,7 @@
   "name": "atenna",
   "displayName": "Atenna",
   "description": "Atenna Programming Language",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "icon": "./atenna.png",
   "engines": {
     "vscode": "^1.81.0"

@@ -22,7 +22,8 @@ uninstall-atenna:
 	sudo rm -Rfv /usr/local/bin/xpg
 
 reset-cache:
-	sudo rm -Rfv /opt/atenna-cache ~/$(VSCODE_EXT)/extensions/extensions.json
+	sudo cp -Rfv ~/$(VSCODE_EXT)/extensions ~/$(VSCODE_EXT)/reset-caches
+	sudo rm -Rfv /opt/atenna-cache ~/$(VSCODE_EXT)/extensions
 
 install-vscode-support:
 	cp -Rfv atenna-vscode ~/$(VSCODE_EXT)/extensions/atenna-vscode
