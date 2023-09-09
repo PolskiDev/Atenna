@@ -3,5 +3,5 @@ import "../build/index.js" as Wasmer
 
 private void function wasm() {
     let element = window.document.getElementById("console-text")
-    element.innerHTML = Wasmer.add(3,2)
+    element.innerHTML = Wasmer.add(3,2).toString()
 }

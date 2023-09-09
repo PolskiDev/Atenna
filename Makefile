@@ -2,9 +2,19 @@
 # Uninstall with: 			make uninstall
 # Reset all caches with:	make reset-cache
 VSCODE_EXT=.vscode
+SU=
 
 all: install
 #sudo npm install -g fs-extra
+
+install-all: install-atenna install-vscode-support
+	cd wasm && ./configure && make universal test SUDO=$(SU)
+
+uninstall-all: uninstall-atenna uninstall-vscode-support
+	cd wasm && make uninstall SUDO=$(SU)
+
+
+
 
 install-atenna:
 	sudo chmod +x atennac.js

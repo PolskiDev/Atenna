@@ -38,40 +38,33 @@ xpg uninstall-module <module>
 xpg --help
 ```
 
-## Install AtennaC and Extension Support on Microsoft VSCode
-<img src="assets/vscode.png" width="130px">
+## Install AtennaC, WebAssembly Support and Extension Support on Microsoft VSCode
+<img src="assets/wasm.png" width="120px"><img src="assets/vscode.png" width="130px">
 
 **Note: "sudo" is required**  
 Compile & Install AtennaC and Microsoft VSCode extension from sources using:  
 ```
-make install-atenna install-vscode-support VSCODE_EXT=.vscode
+sudo make install-all SU=sudo VSCODE_EXT=.vscode
 ```   
 
 Uninstall AtennaC and Microsoft VSCode extension with:  
 ```
-make uninstall-atenna uninstall-vscode-support VSCODE_EXT=.vscode
+sudo make uninstall-all SU=sudo VSCODE_EXT=.vscode
 ```  
 
-## Install AtennaC and Extension Support on VSCodium (VSCode OSS)
-<img src="assets/vscodium.png" width="130px">
+## Install AtennaC, WebAssembly Support and Extension Support on VSCodium (VSCode OSS)
+<img src="assets/wasm.png" width="120px"><img src="assets/vscodium.png" width="130px">
 
 **Note: "sudo" is required**   
 Compile & Install AtennaC and VSCodium extension from sources using:  
 ```
-make install-atenna install-vscode-support VSCODE_EXT=.vscode-oss
+sudo make install-all SU=sudo VSCODE_EXT=.vscode-oss
 ```
 
 
 Uninstall AtennaC and VSCode extension with:  
 ```
-make uninstall-atenna uninstall-vscode-support VSCODE_EXT=.vscode-oss
-```  
-
-## Install AtennaC WebAssembly Support
-<img src="assets/wasm.png" width="120px"><br>
-
-```
-cd wasm && ./configure && make universal test SUDO=sudo
+sudo make uninstall-all SU=sudo VSCODE_EXT=.vscode-oss
 ```  
 
 ## Fixing cache errors on compilation target on Microsoft VSCode

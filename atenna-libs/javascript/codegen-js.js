@@ -14,7 +14,7 @@ function CodeGen(input, output, mode='normal', isNode) {
             let module_name = codegen[i].name
             if (isNode == 'nodejs') {
                 // NOTHING TO DO
-                
+                fs.writeFileSync(output,'')
             } else if (isNode == 'webjs') {
                 fs.writeFileSync(output, module_name+'();\n')
             }

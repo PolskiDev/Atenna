@@ -6,9 +6,10 @@ Compile Atenna sources to run on the web with and HTTP Server with Atenna WASM u
 
 [Return to Homepage](../README.md)  
   
-
-Run WebAssembly HTTP Server: `npm start` or `npx serve .`  
-Compile mannually all sources to WebAssembly: `npm run asbuild`   
+- **Configure your package first: `npm run configure`**  
+- Compile mannually all sources to WebAssembly: `npm run asbuild`   
+- Run WebAssembly HTTP Server: `npm start` or `npx serve .`  
+  
 
 ## Package organization
 **All Atenna WASM files for the Web: `web/*`**  
@@ -24,7 +25,7 @@ Compile mannually all sources to WebAssembly: `npm run asbuild`
 ### Compile programs on AtennaC WASM
 Help manpage: `sudo atennac --help`  
 Compile to binary: `sudo atennac <file>.atn -wasm <file>`  
-Compile to library module: `sudo atennac <project_name> -new-wasm`
+Compile to library module: `atennac <project_name> -new-wasm`
     
 View AST - Abstract Syntax Tree: `sudo atennac <file>.atn -ast-wasm`  
 

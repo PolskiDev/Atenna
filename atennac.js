@@ -7,7 +7,7 @@ const codegen = require('./atenna-libs/codegen')
 const codegen_javascript = require('./atenna-libs/javascript/codegen-js')
 const codegen_wasm = require('./atenna-libs/wasm/codegen-wasm')
 
-const { execSync } = require('child_process')
+const { execSync, exec } = require('child_process')
 
 
 // V MIDDLE-END BINARIES FOLDER
@@ -50,26 +50,50 @@ if (args[1] == '-ast') {
     console.log(args[0])
     let lexr = ast_lexer_parser.GenerateAST(args[0], 'js')
     codegen_javascript.CodeGen(lexr, args[2]+'.ts', 'normal', 'webjs')
-    execSync('npx tsc -t ES2016 --lib "ES2016","DOM" '+args[2]+'.ts')
+    exec('npx tsc -t "ES6" '+args[2]+'.ts', (error, stdout, stderr) => {
+        if (error) {
+          console.error(`error: ${error.message}`);
+          return;
+        }
+      
+        if (stderr) {
+          console.error(`stderr: ${stderr}`);
+          return;
+        }
+      
+        console.log(`stdout:\n${stdout}`);
+    });
 
     // REMOVE OBJECT CODE
-    fs.rmSync(args[2]+'.ts')
+    //fs.rmSync(args[2]+'.ts')
 
 } else if (args[1] == '-node-js') {
     console.log(args[0])
     let lexr = ast_lexer_parser.GenerateAST(args[0], 'js')
     codegen_javascript.CodeGen(lexr, args[2]+'.ts', 'normal', 'nodejs')
-    execSync('sudo npm install -g typescript && sudo npm install -g @types/node && tsc -t ES2016 --lib "ES2016","DOM" '+args[2]+'.ts')
+    exec('npx tsc -t "ES6" '+args[2]+'.ts', (error, stdout, stderr) => {
+        if (error) {
+          console.error(`error: ${error.message}`);
+          return;
+        }
+      
+        if (stderr) {
+          console.error(`stderr: ${stderr}`);
+          return;
+        }
+      
+        console.log(`stdout:\n${stdout}`);
+    });
 
     // REMOVE OBJECT CODE
-    fs.rmSync(args[2]+'.ts')
+    //fs.rmSync(args[2]+'.ts')
 
 
 } else if (args[1] == '-wasm') {
     console.log(args[0])
     let lexr = ast_lexer_parser.GenerateAST(args[0], 'wasm')
     codegen_wasm.CodeGen(lexr, args[2]+'.ts', 'normal')
-    execSync('npm run asbuild')
+   //execSync('npm run asbuild')
 
     // REMOVE OBJECT CODE
     //fs.rmSync(args[2]+'.ts')
@@ -225,7 +249,8 @@ if (args[1] == '-ast') {
     console.log("\n\n<file>.atenna   -wasm    <file>            Output is a WebAssembly Bytecode\n")
     console.log("<file>.atenna   -ast-wasm                  Show generated AST for WebAssembly\n\n")
 
-    console.log("<project_name>   -new-wasm        Create new project template for WebAssembly\n")    
+    console.log("<project_name>   -new-wasm         Create new project template for WebAssembly")
+    console.log("                                   *Run without (sudo)*\n")    
     console.log("--------------------------------------------------------------------------------\n\n")
 }
 

@@ -12,7 +12,8 @@
     "asbuild": "npm run asbuild:debug && npm run asbuild:release",
     "test": "node tests",
     "start": "npx serve .",
-    "localhost": "npx serve ."
+    "localhost": "npx serve .",
+    "configure": "sudo npm install -g typescript && sudo npm install -g @types/node"
   },
   "devDependencies": {
     "@types/node": "^20.6.0",

@@ -1,5 +1,5 @@
 package wasm
-import "../loader.js" select Wasmer
+import "./loader.js" select Wasmer
 
 public void function main() {
     let x = Wasmer.add(5,6)
