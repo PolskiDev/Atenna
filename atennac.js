@@ -215,7 +215,7 @@ if (args[1] == '-ast') {
     console.log("<file>.atenna   -ast                       Show generated AST\n")
 
     console.log("\n\n<file>.atenna   -web-js    <file>          Output is a Javascript Web file\n")
-    console.log("\n\n<file>.atenna   -node-js    <file>          Output is a Javascript Node.js file\n")
+    console.log("<file>.atenna   -node-js    <file>          Output is a Javascript Node.js file\n")
     console.log("<file>.atenna   -ast-web-js                Show generated AST for Javascript\n")
 
     console.log("\n\n<file>.atenna   -wasm    <file>            Output is a WebAssembly Bytecode\n")
