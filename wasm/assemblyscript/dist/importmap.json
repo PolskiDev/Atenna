@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "assemblyscript": "./assemblyscript.js",
+    "assemblyscript/asc": "./asc.js",
+    "binaryen": "https://cdn.jsdelivr.net/npm/binaryen@112.0.0-nightly.20230411/index.js",
+    "long": "https://cdn.jsdelivr.net/npm/long@5.2.1/index.js"
+  }
+}

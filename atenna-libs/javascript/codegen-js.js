@@ -7,13 +7,17 @@ const lexer = require('../ast-lexer-parser')
 const { tokens } = require('../token_table')
 
 
-function CodeGen(input, output, mode='normal') {
+function CodeGen(input, output, mode='normal', isNode) {
     let codegen = input
     for (var i = 0; i < codegen?.length; i++) {
         if (codegen[i].type == 'initialize_program') {
             let module_name = codegen[i].name
-            fs.writeFileSync(output, module_name+'();\n')
-            
+            if (isNode == 'nodejs') {
+                // NOTHING TO DO
+                
+            } else if (isNode == 'webjs') {
+                fs.writeFileSync(output, module_name+'();\n')
+            }
         }
 
         else if (codegen[i].type == 'enum_def') {
@@ -107,7 +111,11 @@ function CodeGen(input, output, mode='normal') {
 
         else if (codegen[i].type == 'package_importing') {
             /* Node.js */
-            //fs.appendFileSync(output, `import * as ${codegen[i].data.cpath} from ${codegen[i].data.path};\n`)
+            if (codegen[i].data.mode == 'as') {
+                fs.appendFileSync(output, `import * as ${codegen[i].data.cpath} from ${codegen[i].data.path};\n`)
+            } else if (codegen[i].data.mode == 'select') {
+                fs.appendFileSync(output, `import { ${codegen[i].data.cpath} } from ${codegen[i].data.path};\n`)
+            }
         }
         else if (codegen[i].type == 'package_including') {
             fs.appendFileSync(output, fs.readFileSync(codegen[i].data.path, 'utf8'))

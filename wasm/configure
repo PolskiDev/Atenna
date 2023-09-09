@@ -1,0 +1,2 @@
+#!/bin/bash
+cd assemblyscript; npm run build; npm run bootstrap

@@ -1,0 +1,2 @@
+#!/bin/bash
+node /usr/local/bin/assemblyscript/bin/asc.js --lib /usr/local/bin/assemblyscript/node_modules/@assemblyscript/node/assembly $@

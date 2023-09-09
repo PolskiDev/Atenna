@@ -4,8 +4,9 @@ const args = process.argv.slice(2)
 const fs = require('fs')
 const ast_lexer_parser = require('./atenna-libs/ast-lexer-parser')
 const codegen = require('./atenna-libs/codegen')
-
 const codegen_javascript = require('./atenna-libs/javascript/codegen-js')
+const codegen_wasm = require('./atenna-libs/wasm/codegen-wasm')
+
 const { execSync } = require('child_process')
 
 
@@ -19,7 +20,12 @@ const LINUX_x86_CACHE = 'v-linux-x86-cache'
 const LINUX_x64_CACHE = 'v-linux-x64-cache'
 const UNKNOWN_CPU_ARCH_CACHE = 'v-unknown-cpu-arch-cache'
 
-function CopyFile(init, dest) {
+
+// NPM WASM - LUXAR
+const LUXAR_ORIGIN = '/usr/local/bin/luxar'
+
+
+function CopyDir(init, dest) {
     fs.cpSync(init, dest, { recursive: true })
 }
 
@@ -29,7 +35,7 @@ if (args[1] == '-ast') {
     console.log(ast_lexer_parser.GenerateAST(args[0], false))
 
 } else if (args[1] == '-ast-web-js') {
-    console.log(ast_lexer_parser.GenerateAST(args[0], true))
+    console.log(ast_lexer_parser.GenerateAST(args[0], 'js'))
 
 } else if (args[1] == '-lib-module') {
     fs.mkdirSync(args[2], { recursive: true })
@@ -38,13 +44,46 @@ if (args[1] == '-ast') {
 
 } else if (args[1] == '-web-js') {
     console.log(args[0])
-    let lexr = ast_lexer_parser.GenerateAST(args[0], true)
-    codegen_javascript.CodeGen(lexr, args[2]+'.ts', 'normal')
+    let lexr = ast_lexer_parser.GenerateAST(args[0], 'js')
+    codegen_javascript.CodeGen(lexr, args[2]+'.ts', 'normal', 'webjs')
     execSync('sudo npm install -g typescript && sudo npm install -g @types/node && tsc -t ES2016 --lib "ES2016","DOM" '+args[2]+'.ts')
 
     // REMOVE OBJECT CODE
     fs.rmSync(args[2]+'.ts')
 
+} else if (args[1] == '-node-js') {
+    console.log(args[0])
+    let lexr = ast_lexer_parser.GenerateAST(args[0], 'js')
+    codegen_javascript.CodeGen(lexr, args[2]+'.ts', 'normal', 'nodejs')
+    execSync('sudo npm install -g typescript && sudo npm install -g @types/node && tsc -t ES2016 --lib "ES2016","DOM" '+args[2]+'.ts')
+
+    // REMOVE OBJECT CODE
+    fs.rmSync(args[2]+'.ts')
+
+
+} else if (args[1] == '-wasm') {
+    console.log(args[0])
+    let lexr = ast_lexer_parser.GenerateAST(args[0], 'wasm')
+    codegen_wasm.CodeGen(lexr, args[2]+'.ts', 'normal')
+    execSync('npm run asbuild')
+
+    // REMOVE OBJECT CODE
+    //fs.rmSync(args[2]+'.ts')
+
+} else if (args[1] == '-ast-wasm') {
+    console.log(args[0])
+    let lexr = ast_lexer_parser.GenerateAST(args[0], 'wasm')
+    console.log(lexr)
+    //execSync('sudo npm install -g typescript && sudo npm install -g @types/node && tsc -t ES2016 --lib "ES2016","DOM" '+args[2]+'.ts')
+
+    // REMOVE OBJECT CODE
+    //fs.rmSync(args[2]+'.ts')
+
+} else if (args[1] == '-new-wasm') {
+    // SHOW ABSTRACT SYNTAX TREE
+    CopyDir(LUXAR_ORIGIN, args[0])
+
+        
 } else if (args[1] == '-o') {
     // GENERATE .atenna FOLDER
     //fs.mkdirSync(HOME_ATENNA_CACHE.slice(0,-1), {recursive: true})
@@ -171,13 +210,18 @@ if (args[1] == '-ast') {
 
     //console.log("--------------------------------------------------------------------------------\n\n")
     console.log("Options:\n")
-    console.log("<file>.atenna   -o    <file>                   Output is a binary\n")
-    console.log("<file>.atenna   -lib-module    <file>          Output is a library module\n")
-    console.log("<file>.atenna   -ast                           Show generated AST\n")
+    console.log("<file>.atenna   -o    <file>               Output is a binary\n")
+    console.log("<file>.atenna   -lib-module    <file>      Output is a library module\n")
+    console.log("<file>.atenna   -ast                       Show generated AST\n")
 
-    console.log("\n\n<file>.atenna   -web-js    <file>              Output is a Javascript file\n")
-    console.log("<file>.atenna   -ast-web-js                    Show generated AST for Javascript\n")
+    console.log("\n\n<file>.atenna   -web-js    <file>          Output is a Javascript Web file\n")
+    console.log("\n\n<file>.atenna   -node-js    <file>          Output is a Javascript Node.js file\n")
+    console.log("<file>.atenna   -ast-web-js                Show generated AST for Javascript\n")
 
+    console.log("\n\n<file>.atenna   -wasm    <file>            Output is a WebAssembly Bytecode\n")
+    console.log("<file>.atenna   -ast-wasm                  Show generated AST for WebAssembly\n\n")
+
+    console.log("<project_name>   -new-wasm        Create new project template for WebAssembly\n")    
     console.log("--------------------------------------------------------------------------------\n\n")
 }
 

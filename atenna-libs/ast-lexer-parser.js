@@ -213,10 +213,31 @@ function GenerateAST(input, isJavascriptAssembly) {
                                         typedef_colection.push(vartype)
                                     }
                                 } else {
-                                    if (vartype == token_table.tokens.let_dt || vartype == token_table.tokens.event_function_definition) {
+                                    if (
+                                        vartype == token_table.tokens.let_dt
+                                        || vartype == token_table.tokens.event_function_definition
+
+                                        || vartype == token_table.tokens.integer32_value
+                                        || vartype == token_table.tokens.integer64_value
+                                        || vartype == token_table.tokens.integer16_value
+                                        || vartype == token_table.tokens.integer8_value
+                                        || vartype == token_table.tokens.integer128_value
+
+                                        || vartype == token_table.tokens.unsigned_integer32_value
+                                        || vartype == token_table.tokens.unsigned_integer64_value
+                                        || vartype == token_table.tokens.unsigned_integer16_value
+                                        || vartype == token_table.tokens.unsigned_integer8_value
+                                        || vartype == token_table.tokens.unsigned_integer128_value
+
+                                        || vartype == token_table.tokens.float32_value
+                                        || vartype == token_table.tokens.float64_value
+
+                                        || vartype == token_table.tokens.string_value
+                                        || vartype == token_table.tokens.bool_value
+                                    ) {
                                         if (stack[i+1] == token_table.tokens.new_kw) {
     
-                                            if (isJavascriptAssembly == true) {
+                                            if (isJavascriptAssembly == 'js') {
                                                 value = line.slice(line.indexOf('new')+4)
                                                 value = value.replaceAll('(','{')
                                                 value = value.replaceAll(')','}')
@@ -243,7 +264,7 @@ function GenerateAST(input, isJavascriptAssembly) {
                                             var_collection.push(varname)
                                             typedef_colection.push(vartype)
                                         } else {
-                                            if (isJavascriptAssembly) {
+                                            if (isJavascriptAssembly == 'js') {
                                                 //let isEventFunction = stack[i-3]
                                                 if (vartype == token_table.tokens.event_function_definition) {
                                                     let data = {
@@ -272,6 +293,19 @@ function GenerateAST(input, isJavascriptAssembly) {
                                                     var_collection.push(varname)
                                                     typedef_colection.push(vartype)
                                                 }
+                                            } else if (isJavascriptAssembly == 'wasm') {
+                                                    let data = {
+                                                        token: token_table.tokens.variable_assignment,
+                                                        type: 'variable_assignment',
+                                                        data: {
+                                                            vartype: vartype,
+                                                            varname: varname,
+                                                            value: value
+                                                        }
+                                                    }
+                                                    json.push(data);
+                                                    var_collection.push(varname)
+                                                    typedef_colection.push(vartype)
                                             } else {
                                                 let data = {
                                                     token: token_table.tokens.variable_assignment,
@@ -331,7 +365,8 @@ function GenerateAST(input, isJavascriptAssembly) {
             else if (stack[i] == token_table.tokens.package_importing
                 && line.includes(token_table.tokens.commentary) == false) {
                 let path = stack[i+1]
-                let cpath = stack[i+1].slice(1,-1)
+                let cpath = stack[i+3]
+                let mode = stack[i+2]
                 let alias
 
                 // Setting alias
@@ -352,7 +387,8 @@ function GenerateAST(input, isJavascriptAssembly) {
                         data: {
                             path: path,
                             alias: alias,
-                            cpath: cpath
+                            cpath: cpath,
+                            mode: mode
                         }
                     }
                     json.push(data);
@@ -426,7 +462,13 @@ function GenerateAST(input, isJavascriptAssembly) {
                     console.log("Semantic Error: Function ("+funcname+") was alredy declared!")
                     break
                 } else {
-                    args = args.replace(/:/g, '')
+                    if (isJavascriptAssembly == 'js') {
+                        // KEEP (:)
+                    } else if (isJavascriptAssembly == 'wasm') {
+                        // KEEP (:)
+                    } else {
+                        args = args.replace(/:/g, '')
+                    }
 
                     if (opening_block == token_table.tokens.open_block) {
                         let data = {

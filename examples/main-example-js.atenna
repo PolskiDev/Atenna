@@ -1,0 +1,28 @@
+package main
+
+# Simple enum example
+enum Person {
+    def age int
+    def height float32
+    def full_name string
+}
+
+private void function clk() {
+    System.out.println("You clicked me!")
+}
+private void function main() {
+    System.out.println("Hello world")
+    let entry = window.document.getElementById("txt")
+    System.out.println("Hello "+entry.value+"!")
+    
+    let gabriel = new Person(age: 18, height: 1.75, full_name: "Gabriel Margarido")
+    const x = 13
+
+    const b[] = (0, 4, 56)
+    let d = b.length
+    for i in (0..d) {
+
+    }
+
+    @function clk = window.document.getElementById("clk").onclick
+}

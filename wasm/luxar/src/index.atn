@@ -1,0 +1,5 @@
+package wasm
+
+public int function add(a: int, b: int) {
+    return a+b
+}

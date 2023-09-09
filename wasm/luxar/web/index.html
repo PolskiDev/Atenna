@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebAssembly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <style>
+        .header {
+            padding-top: 50px;
+        }
+        .console {
+            width: 95%;
+            height: 40%;
+            background-color: black;
+            padding-top: 20px;
+        }
+        .console-text {
+            /* padding-top: 10px;
+            padding-bottom: 400px; */
+        }
+        .lead {
+            color: gray;
+            font-family: 'Source Code Pro', monospace;
+        }
+        .console-info {
+            color: white;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <img src="wasm.png" width="60px">
+    <hr>
+    <div class="header">
+        <center>
+            <img src="wasm-logo.png" width="30%">
+            <h3 class="lead">Console Output:</h3>
+            <div class="console">
+                <div class="console-text">
+                    <h1 class="console-info" id="console-text">Here is the output</h1>
+                    <br>
+                </div>
+            </div>
+            <h4 class="lead">Gabriel Margarido - MIT License<br>Powered by WebAssembly</h4>
+        </center>
+    </div>
+    
+    <script type="module" src="wasm.js"></script>
+</body>
+</html>

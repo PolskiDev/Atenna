@@ -7,14 +7,15 @@ Atenna.js only supports basic libraries, it means that you can use all Javascrip
 
 It's main focus is on web development using Atenna Programming Language.
 
-[See Atenna.js - Run Atenna on the Web](JS.md)
+[See Atenna.js - Run Atenna on the Web](JS.md)  
+[See Atenna WASM - Run Atenna on WebAssembly](wasm/README.md)  
 
 <img src="assets/atenna.png" width="150px"><br>
 
 Atenna source-files extensions are: `*.atenna` or `*.atn` 
 
 
-# Continue on Standard Atenna
+# Standard Atenna
 ## Install Git Bash (Windows)
 <img src="assets/Bash_Logo_Colored.svg.png" width="130px">
 
@@ -37,26 +38,41 @@ xpg uninstall-module <module>
 xpg --help
 ```
 
-## Install Atenna on Microsoft VSCode
+## Install AtennaC and Extension Support on Microsoft VSCode
 <img src="assets/vscode.png" width="130px">
 
 **Note: "sudo" is required**  
 Compile & Install AtennaC and Microsoft VSCode extension from sources using:  
-`make install-atenna install-vscode-support VSCODE_EXT=.vscode`  
+```
+make install-atenna install-vscode-support VSCODE_EXT=.vscode
+```   
 
 Uninstall AtennaC and Microsoft VSCode extension with:  
-`make uninstall-atenna uninstall-vscode-support VSCODE_EXT=.vscode`  
+```
+make uninstall-atenna uninstall-vscode-support VSCODE_EXT=.vscode
+```  
 
-## Install Atenna on VSCodium (VSCode OSS)
+## Install AtennaC and Extension Support on VSCodium (VSCode OSS)
 <img src="assets/vscodium.png" width="130px">
 
 **Note: "sudo" is required**   
 Compile & Install AtennaC and VSCodium extension from sources using:  
-`make install-atenna install-vscode-support VSCODE_EXT=.vscode-oss`  
+```
+make install-atenna install-vscode-support VSCODE_EXT=.vscode-oss
+```
+
 
 Uninstall AtennaC and VSCode extension with:  
-`make uninstall-atenna uninstall-vscode-support VSCODE_EXT=.vscode-oss`  
+```
+make uninstall-atenna uninstall-vscode-support VSCODE_EXT=.vscode-oss
+```  
 
+## Install AtennaC WebAssembly Support
+<img src="assets/wasm.png" width="120px"><br>
+
+```
+cd wasm && ./configure && make universal test SUDO=sudo
+```  
 
 ## Fixing cache errors on compilation target on Microsoft VSCode
 <img src="assets/vscode.png" width="100px">
@@ -122,6 +138,8 @@ import db.mysql
 ```
 
 ### Single-line Comments
+All comments inside source-code should be placed alone on a separate line.
+
 ```
 # There is a comment here
 ```  

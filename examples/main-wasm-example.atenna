@@ -1,0 +1,6 @@
+package main
+
+public void function main() {
+    System.out.println("Hello world")
+    float32 x = 13
+}
