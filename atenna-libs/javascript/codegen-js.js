@@ -158,39 +158,17 @@ function CodeGen(input, output, mode='normal', isNode) {
             if (codegen[i].data.state_type == tokens.bool_value) { codegen[i].data.state_type = 'boolean' }
 
 
+            // ARGS
+            codegen[i].data.args = codegen[i].data.args.replace(/float32/g, 'f32')
+            codegen[i].data.args = codegen[i].data.args.replace(/float64/g, 'f64')
 
-            // ARGS - FLOATS
-            codegen[i].data.args = codegen[i].data.args.replaceAll(tokens.float32_value, 'float')
-            codegen[i].data.args = codegen[i].data.args.replaceAll(tokens.float64_value, 'float')
-            
-
-            // ARGS - INTEGERS
-            if (codegen[i].data.args == tokens.float32_value) { codegen[i].data.args = 'number' }
-            if (codegen[i].data.args == tokens.float64_value) { codegen[i].data.args = 'number' }
-
-            if (codegen[i].data.args == tokens.integer32_value) { codegen[i].data.args = 'number' }
-            if (codegen[i].data.args == tokens.integer64_value) { codegen[i].data.args = 'number' }
-            if (codegen[i].data.args == tokens.integer128_value) { codegen[i].data.args = 'number' }
-            if (codegen[i].data.args == tokens.integer8_value) { codegen[i].data.args = 'number' }
-            if (codegen[i].data.args == tokens.integer16_value) { codegen[i].data.args = 'number' }
-
-            if (codegen[i].data.args == tokens.unsigned_integer32_value) { codegen[i].data.args = 'number' }
-            if (codegen[i].data.args == tokens.unsigned_integer64_value) { codegen[i].data.args = 'number' }
-            if (codegen[i].data.args == tokens.unsigned_integer128_value) { codegen[i].data.args = 'number' }
-            if (codegen[i].data.args == tokens.unsigned_integer8_value) { codegen[i].data.args = 'number' }
-            if (codegen[i].data.args == tokens.unsigned_integer16_value) { codegen[i].data.args = 'number' }
-
-            if (codegen[i].data.args == tokens.integer_size_value) { codegen[i].data.args = 'number' }
-            if (codegen[i].data.args == tokens.unsigned_integer_size_value) { codegen[i].data.args = 'number' }
-
-            
-            // ARGS - STRING AND BOOL
-            if (codegen[i].data.args == tokens.string_value) { codegen[i].data.args = 'string' }
-            if (codegen[i].data.args == tokens.rune_value) { codegen[i].data.args = 'string' }
-            if (codegen[i].data.args == tokens.bool_value) { codegen[i].data.args = 'boolean' }
-
-
-
+            codegen[i].data.args = codegen[i].data.args.replace(/int/g, 'i32')
+            codegen[i].data.args = codegen[i].data.args.replace(/i128/g, 'i64')
+            codegen[i].data.args = codegen[i].data.args.replace(/u128/g, 'u64')
+            codegen[i].data.args = codegen[i].data.args.replace(/usize/g, 'u32')
+            codegen[i].data.args = codegen[i].data.args.replace(/isize/g, 'i32')
+            codegen[i].data.args = codegen[i].data.args.replace(/rune/g, 'string')
+            codegen[i].data.args = codegen[i].data.args.replace(/bool/g, 'boolean')
 
             fs.appendFileSync(output, codegen[i].data.modifier+'function '+codegen[i].data.funcname+codegen[i].data.args+'\n')
         }

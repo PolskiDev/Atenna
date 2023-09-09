@@ -1,5 +1,5 @@
 # Atenna Programming Language
-### Developed by Gabriel Margarido - Version 0.3.2
+### Developed by Gabriel Margarido - Version 0.3.3
 A compiled, multiplatform, statically, structured and strongly-typed programming language with a Java-like syntax and a bit of Javascript semantics. That ables you to code instantly fast programs and execute them on LLVM (low-level virtual machine) or inside the web browser.
 
 

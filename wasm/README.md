@@ -1,5 +1,5 @@
 # Atenna WASM - AtennaC for WebAssembly
-### Developed by Gabriel Margarido - Version 0.3.2
+### Developed by Gabriel Margarido - Version 0.3.3
 <img src="../assets/wasm.png" width="150px">
 
 Compile Atenna sources to run on the web with and HTTP Server with Atenna WASM using Atenna.js as a complement as well, or on Node.js using pure Atenna WASM. It's a strongly and static typed programming language, that generates a WebAssemly Bytecode binary format to run WASM Virtual Machine, it can be also used for excessive CPU bounding tasks.

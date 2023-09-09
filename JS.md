@@ -1,5 +1,5 @@
 # Atenna Programming Language - Atenna.js
-### Developed by Gabriel Margarido - Version 0.3.2
+### Developed by Gabriel Margarido - Version 0.3.3
 
 <img src="assets/68747470733a2f2f7261772e6769746875622e636f6d2f6a73636f6e662f6c6f676f2e6a732f6d61737465722f6a732e65752e706e67.png" width="150px"><br>
 

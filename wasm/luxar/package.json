@@ -15,6 +15,8 @@
     "localhost": "npx serve ."
   },
   "devDependencies": {
-    "assemblyscript": "^0.0.0"
+    "@types/node": "^20.6.0",
+    "assemblyscript": "^0.0.0",
+    "typescript": "^5.2.2"
   }
 }

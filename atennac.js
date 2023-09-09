@@ -28,6 +28,10 @@ const LUXAR_ORIGIN = '/usr/local/bin/luxar'
 function CopyDir(init, dest) {
     fs.cpSync(init, dest, { recursive: true })
 }
+function CopyFile(init, dest) {
+    fs.cpSync(init, dest, { recursive: true })
+}
+
 
 // CLI ARGS LOGIC
 if (args[1] == '-ast') {
@@ -46,7 +50,7 @@ if (args[1] == '-ast') {
     console.log(args[0])
     let lexr = ast_lexer_parser.GenerateAST(args[0], 'js')
     codegen_javascript.CodeGen(lexr, args[2]+'.ts', 'normal', 'webjs')
-    execSync('sudo npm install -g typescript && sudo npm install -g @types/node && tsc -t ES2016 --lib "ES2016","DOM" '+args[2]+'.ts')
+    execSync('npx tsc -t ES2016 --lib "ES2016","DOM" '+args[2]+'.ts')
 
     // REMOVE OBJECT CODE
     fs.rmSync(args[2]+'.ts')
