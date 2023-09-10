@@ -1,7 +1,8 @@
 # Atenna Programming Language - Atenna.js
-### Developed by Gabriel Margarido - Version 0.3.4
+### Developed by Gabriel Margarido - Version 0.3.5
 
-<img src="assets/68747470733a2f2f7261772e6769746875622e636f6d2f6a73636f6e662f6c6f676f2e6a732f6d61737465722f6a732e65752e706e67.png" width="150px"><br>
+<img src="assets/68747470733a2f2f7261772e6769746875622e636f6d2f6a73636f6e662f6c6f676f2e6a732f6d61737465722f6a732e65752e706e67.png" width="150px">
+<br><br>
 
 Atenna source-files extensions are: `*.atenna` or `*.atn`   
 [Return to Homepage](README.md)  
@@ -58,6 +59,41 @@ private void function main() {
 }
 ```
 
+## Importing external modules - Exclusively Node.js (Flag: `-node-js`)
+<img src="assets/nodejs.png" width="150px">
+
+
+## Import one specific function/variable
+**Atenna.js Imports**
+```
+import "./module.js" select MyFunc
+```
+**Javascript - ES Modules Equivalent**
+```
+import { MyFunc } from "./module.js"
+```
+**Javascript - CommonJS Equivalent**
+```
+const { MyFunc } = require("./module.js")
+```
+
+
+## Import all functions/variables
+**Atenna.js Import**
+```
+import "./module.js" as Module
+```
+**Javascript - ES Modules Equivalent**
+```
+import * as Module from "./module.js"
+```
+**Javascript - CommonJS Equivalent**
+```
+const Module = require("./module.js")
+```
+
+
+## Functions
 ### Creating functions and returning values
 ```
 package main
