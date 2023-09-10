@@ -44,12 +44,12 @@ xpg --help
 **Note: "sudo" is required**  
 Compile & Install AtennaC and Microsoft VSCode extension from sources using:  
 ```
-sudo make install-all SU=sudo VSCODE_EXT=.vscode
+sudo make install-all clean SU=sudo VSCODE_EXT=.vscode
 ```   
 
 Uninstall AtennaC and Microsoft VSCode extension with:  
 ```
-sudo make uninstall-all SU=sudo VSCODE_EXT=.vscode
+sudo make uninstall-all clean SU=sudo VSCODE_EXT=.vscode
 ```  
 
 ## Install AtennaC, WebAssembly Support and Extension Support on VSCodium (VSCode OSS)
@@ -58,13 +58,13 @@ sudo make uninstall-all SU=sudo VSCODE_EXT=.vscode
 **Note: "sudo" is required**   
 Compile & Install AtennaC and VSCodium extension from sources using:  
 ```
-sudo make install-all SU=sudo VSCODE_EXT=.vscode-oss
+sudo make install-all clean SU=sudo VSCODE_EXT=.vscode-oss
 ```
 
 
 Uninstall AtennaC and VSCode extension with:  
 ```
-sudo make uninstall-all SU=sudo VSCODE_EXT=.vscode-oss
+sudo make uninstall-all clean SU=sudo VSCODE_EXT=.vscode-oss
 ```  
 
 ## Fixing cache errors on compilation target on Microsoft VSCode
